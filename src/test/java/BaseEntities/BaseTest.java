@@ -12,6 +12,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import services.BrowsersService;
 import services.WaitsService;
+import steps.AddNewProjectStep;
+import steps.LoginStep;
 import utils.InvokedListener;
 
 import java.time.Duration;
@@ -20,18 +22,25 @@ import java.time.Duration;
 public class BaseTest {
     protected WebDriver driver;
     private Capabilities capabilities;
+    protected LoginStep loginStep;
+    protected AddNewProjectStep addNewProjectStep;
+
     @BeforeMethod
-    public void setUp(ITestContext iTestContext){
+    public void setUp(ITestContext iTestContext) {
         driver = new BrowsersService().getDriver();
         iTestContext.setAttribute("driver", driver);
 
         driver.get(ReadProperties.getUrl());
 
-        capabilities = ((RemoteWebDriver)driver).getCapabilities();
+        capabilities = ((RemoteWebDriver) driver).getCapabilities();
+
+        loginStep = new LoginStep(driver);
+
+        addNewProjectStep = new AddNewProjectStep(driver);
     }
 
     @AfterMethod
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 
