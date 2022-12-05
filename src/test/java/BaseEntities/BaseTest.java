@@ -11,16 +11,20 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import services.BrowsersService;
+import services.WaitsService;
+import steps.AddNewProjectStep;
+import steps.LoginStep;
 import utils.InvokedListener;
 
 @Listeners(InvokedListener.class)
 public class BaseTest {
     protected WebDriver driver;
     private Capabilities capabilities;
-
+    protected LoginStep loginStep;
+    protected AddNewProjectStep addNewProjectStep;
 
     @BeforeMethod
-    public void setUp(ITestContext iTestContext){
+    public void setUp(ITestContext iTestContext) {
         driver = new BrowsersService().getDriver();
         iTestContext.setAttribute("driver", driver);
 
@@ -32,16 +36,11 @@ public class BaseTest {
         UpdateEnvironmentProperties.setProperty("java.version", System.getProperty("java.version"));
         UpdateEnvironmentProperties.setProperty("browser.name", capabilities.getBrowserName());
         UpdateEnvironmentProperties.setProperty("browser.version", capabilities.getBrowserVersion());
-    }
 
-/*    @BeforeMethod
-    public void setEnvironmentProperties(){
-        UpdateEnvironmentProperties.setProperty("os.name", System.getProperty("os.name"));
-        UpdateEnvironmentProperties.setProperty("user.name", System.getProperty("user.name"));
-        UpdateEnvironmentProperties.setProperty("java.version", System.getProperty("java.version"));
-        UpdateEnvironmentProperties.setProperty("browser.name", capabilities.getBrowserName());
-        UpdateEnvironmentProperties.setProperty("browser.version", capabilities.getBrowserVersion());
-    }*/
+        loginStep = new LoginStep(driver);
+
+        addNewProjectStep = new AddNewProjectStep(driver);
+    }
 
     @AfterMethod
     public void tearDown() {
