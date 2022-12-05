@@ -26,16 +26,22 @@ public class BaseTest {
 
         driver.get(ReadProperties.getUrl());
         capabilities = ((RemoteWebDriver) driver).getCapabilities();
-    }
 
-    @AfterMethod
-    public void setEnvironmentProperties(){
         UpdateEnvironmentProperties.setProperty("os.name", System.getProperty("os.name"));
         UpdateEnvironmentProperties.setProperty("user.name", System.getProperty("user.name"));
         UpdateEnvironmentProperties.setProperty("java.version", System.getProperty("java.version"));
         UpdateEnvironmentProperties.setProperty("browser.name", capabilities.getBrowserName());
         UpdateEnvironmentProperties.setProperty("browser.version", capabilities.getBrowserVersion());
     }
+
+/*    @BeforeMethod
+    public void setEnvironmentProperties(){
+        UpdateEnvironmentProperties.setProperty("os.name", System.getProperty("os.name"));
+        UpdateEnvironmentProperties.setProperty("user.name", System.getProperty("user.name"));
+        UpdateEnvironmentProperties.setProperty("java.version", System.getProperty("java.version"));
+        UpdateEnvironmentProperties.setProperty("browser.name", capabilities.getBrowserName());
+        UpdateEnvironmentProperties.setProperty("browser.version", capabilities.getBrowserVersion());
+    }*/
 
     @AfterMethod
     public void tearDown() {
