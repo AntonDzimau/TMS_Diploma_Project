@@ -1,21 +1,43 @@
 package tests.gui;
 
-import BaseEntities.BaseTest;
+import baseEntities.BaseTest;
 import configuration.ReadProperties;
-import jdk.jfr.Description;
+import entities.ProjectsEntities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.projects.ListOfProjectsPage;
 
 public class ProjectTest extends BaseTest {
-    @Test
+
+/*    @Test
     public void successfulAddProjectTest (){
         loginStep.loginSuccessful(ReadProperties.username(),ReadProperties.password());
-        addNewProjectStep.addNewProject();
-        addNewProjectStep.setNameProject("Some name");
-        addNewProjectStep.seTCheckBox();
-        addNewProjectStep.chooseRadioButtonAddProjectByValue("3");
-        addNewProjectStep.saveProject();
-        Assert.assertEquals("Congratulations! You have created your first project",addNewProjectStep.getSuccessfulTextForAddProject());
+        addProjectStep.addNewProject();
+        addProjectStep.setNameProject("Some name");
+        addProjectStep.seTCheckBox();
+        addProjectStep.chooseRadioButtonAddProjectByValue("3");
+        addProjectStep.saveProject();
+        Assert.assertEquals("Congratulations! You have created your first project", addProjectStep.getSuccessfulTextForAddProject());
+    }*/
+
+    @Test(priority = 1)
+    public void addSecondTypeProjectTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        Assert.assertTrue(
+                addProjectStep.addSecondTypeProject()
+                        .getListOfProjects()
+                        .isFoundInTable(projectsEntities.secondTypeProject.getName())
+        );
+    }
+
+    @Test(priority = 2)
+    public void removeSecondTypeProjectTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        Assert.assertFalse(
+                removeProjectStep.removeProjectsByName(projectsEntities.secondTypeProject.getName())
+                        .getListOfProjects()
+                        .isFoundInTable(projectsEntities.secondTypeProject.getName())
+        );
     }
 
    /* @Test(description = "don put some name of project ")
@@ -34,10 +56,10 @@ public class ProjectTest extends BaseTest {
         addNewProjectStep.chooseRadioButtonAddProjectBytext("Use a single repository with baseline support");
         Thread.sleep(5000);
     } */
-    @Test(dependsOnMethods ="successfulAddProjectTest")
+/*    @Test(dependsOnMethods ="successfulAddProjectTest")
     public void deleteProject(){
         loginStep.loginSuccessful(ReadProperties.username(),ReadProperties.password());
-        addNewProjectStep.deleteProject();
-        Assert.assertEquals("Successfully deleted the project.",addNewProjectStep.getSuccessfulTextForDeleteProject());
-    }
+        addProjectStep.deleteProject();
+        Assert.assertEquals("Successfully deleted the project.", addProjectStep.getSuccessfulTextForDeleteProject());
+    }*/
 }

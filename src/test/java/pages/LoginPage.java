@@ -1,8 +1,7 @@
 package pages;
 
-import BaseEntities.BasePage;
+import baseEntities.BasePage;
 import elements.Button;
-import elements.CheckBox;
 import elements.Input;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
