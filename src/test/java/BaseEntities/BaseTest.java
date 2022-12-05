@@ -11,36 +11,39 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import services.BrowsersService;
-import services.WaitsService;
 import utils.InvokedListener;
-
-import java.time.Duration;
 
 @Listeners(InvokedListener.class)
 public class BaseTest {
     protected WebDriver driver;
     private Capabilities capabilities;
+
+
     @BeforeMethod
     public void setUp(ITestContext iTestContext){
         driver = new BrowsersService().getDriver();
         iTestContext.setAttribute("driver", driver);
 
         driver.get(ReadProperties.getUrl());
-
-        capabilities = ((RemoteWebDriver)driver).getCapabilities();
+        capabilities = ((RemoteWebDriver) driver).getCapabilities();
     }
 
     @AfterMethod
-    public void tearDown(){
+    public void setEnvironmentProperties(){
+        UpdateEnvironmentProperties.setProperty("os.name", System.getProperty("os.name"));
+        UpdateEnvironmentProperties.setProperty("user.name", System.getProperty("user.name"));
+        UpdateEnvironmentProperties.setProperty("java.version", System.getProperty("java.version"));
+        UpdateEnvironmentProperties.setProperty("browser.name", capabilities.getBrowserName());
+        UpdateEnvironmentProperties.setProperty("browser.version", capabilities.getBrowserVersion());
+    }
+
+    @AfterMethod
+    public void tearDown() {
         driver.quit();
     }
 
     @AfterTest
     public void storeInfo() {
-        UpdateEnvironmentProperties.setProperty("os.name", System.getProperty("os.name"));
-        UpdateEnvironmentProperties.setProperty("user.home", System.getProperty("user.home"));
-        UpdateEnvironmentProperties.setProperty("browser.name", capabilities.getBrowserName());
-        UpdateEnvironmentProperties.setProperty("browser.version", capabilities.getBrowserVersion());
         UpdateEnvironmentProperties.storeEnvProperties();
     }
 }
