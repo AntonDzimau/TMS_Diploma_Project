@@ -26,5 +26,7 @@ public class LoginTest extends BaseTest {
         loginPage.setPsw(ReadProperties.password());
         loginPage.clickLoginButton();
 
+        Assert.assertEquals(loginPage.getErrorTextElement().getText()
+                , "Email/Login or Password is incorrect. Please try again.");
     }
 }

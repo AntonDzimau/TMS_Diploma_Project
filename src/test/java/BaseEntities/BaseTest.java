@@ -16,8 +16,6 @@ import steps.AddNewProjectStep;
 import steps.LoginStep;
 import utils.InvokedListener;
 
-import java.time.Duration;
-
 @Listeners(InvokedListener.class)
 public class BaseTest {
     protected WebDriver driver;
@@ -31,8 +29,13 @@ public class BaseTest {
         iTestContext.setAttribute("driver", driver);
 
         driver.get(ReadProperties.getUrl());
-
         capabilities = ((RemoteWebDriver) driver).getCapabilities();
+
+        UpdateEnvironmentProperties.setProperty("os.name", System.getProperty("os.name"));
+        UpdateEnvironmentProperties.setProperty("user.name", System.getProperty("user.name"));
+        UpdateEnvironmentProperties.setProperty("java.version", System.getProperty("java.version"));
+        UpdateEnvironmentProperties.setProperty("browser.name", capabilities.getBrowserName());
+        UpdateEnvironmentProperties.setProperty("browser.version", capabilities.getBrowserVersion());
 
         loginStep = new LoginStep(driver);
 
@@ -46,10 +49,6 @@ public class BaseTest {
 
     @AfterTest
     public void storeInfo() {
-        UpdateEnvironmentProperties.setProperty("os.name", System.getProperty("os.name"));
-        UpdateEnvironmentProperties.setProperty("user.home", System.getProperty("user.home"));
-        UpdateEnvironmentProperties.setProperty("browser.name", capabilities.getBrowserName());
-        UpdateEnvironmentProperties.setProperty("browser.version", capabilities.getBrowserVersion());
         UpdateEnvironmentProperties.storeEnvProperties();
     }
 }
