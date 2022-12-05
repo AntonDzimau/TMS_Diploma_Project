@@ -23,6 +23,6 @@ public class loginTest extends BaseTest {
         loginPage.setEmail("username");
         loginPage.setPsw(ReadProperties.password());
         loginPage.clickLoginButton();
-        Assert.assertTrue(new DashboardPage(driver).isPageOpened());
+        Assert.assertFalse(new DashboardPage(driver).isPageOpened());
     }
 }
