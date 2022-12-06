@@ -103,7 +103,7 @@ public class Table {
             ArrayList<UIElement> listOfColumns = listOfRows.get(i).findUIElements(By.cssSelector("td a"));
             for (int j = 0; j < listOfColumns.size(); j++) {
                 if (listOfColumns.get(j).getText().contains(value)) {
-                    System.out.println(listOfColumns.get(j).getText());
+                   // System.out.println(listOfColumns.get(j).getText());
                     targetRow = getListOfRows().get(i);
                 }
             }

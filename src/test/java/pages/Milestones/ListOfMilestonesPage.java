@@ -1,19 +1,18 @@
 package pages.Milestones;
 
 import baseEntities.BasePage;
-import elements.Button;
-import elements.CheckBox;
-import elements.Table;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListOfMilestonesPage extends BasePage {
-    private final static String pagePath = "index.php?/milestones/overview/";
+    private final static String pagePath = "index.php?/milestones/overview/%1$d";
     private final By pageHeaderTitleLocator = By.xpath("//*[contains(@class, 'page_title')][contains(.,'Milestones')]");
-/*    private final By listOfProjectsTableLocator = By.className("grid");
-    private final By checkboxForRemovalLocator = By.cssSelector("div#deleteDialog  input");
-    private final By acceptRemovalButtonLocator = By.cssSelector("div#deleteDialog  a.button-ok");*/
+    private final By listOfMilestonesLocator = By.id("active");
+    private final By milestonesLinksLocator = By.cssSelector(".flex-milestones-2 .text-ppp a");
 
     public ListOfMilestonesPage(WebDriver driver) {
         super(driver);
@@ -25,22 +24,18 @@ public class ListOfMilestonesPage extends BasePage {
     }
 
     public void openPageByUrl(int projectId) {
-        super.openPageByUrl(pagePath + projectId);
+        super.openPageByUrl(String.format(pagePath, projectId));
     }
 
     public WebElement getPageHeaderTitle() {
         return waitsService.waitForVisibilityBy(pageHeaderTitleLocator);
     }
 
-/*    public Table getListOfProjects() {
-        return new Table(driver, waitsService.waitForVisibilityBy(listOfProjectsTableLocator));
+    public WebElement getListOfMilestones() {
+        return waitsService.waitForVisibilityBy(listOfMilestonesLocator);
     }
 
-    public CheckBox getCheckboxForRemoval() {
-        return new CheckBox(driver, waitsService.waitForVisibilityBy(checkboxForRemovalLocator));
+    public List<WebElement> getMilestonesLinks() {
+        return getListOfMilestones().findElements(milestonesLinksLocator);
     }
-
-    public Button getAcceptRemovalButton() {
-        return new Button(driver, waitsService.waitForClickableBy(acceptRemovalButtonLocator));
-    }*/
 }

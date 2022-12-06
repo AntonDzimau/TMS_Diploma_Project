@@ -2,6 +2,8 @@ package entities;
 
 import models.Project;
 
+import java.util.Objects;
+
 
 public class ProjectsEntities {
     public Project firstTypeProject = Project.builder()
@@ -24,4 +26,16 @@ public class ProjectsEntities {
             .showAnnouncement(true)
             .type("3")
             .build();
+
+    public Project getProject(String projectName) {
+        if (Objects.equals(secondTypeProject.getName(), projectName)) {
+            return secondTypeProject;
+        } else if (Objects.equals(firstTypeProject.getName(), projectName)) {
+            return firstTypeProject;
+        } else if (Objects.equals(thirdTypeProject.getName(), projectName)) {
+            return thirdTypeProject;
+        } else {
+            return null;
+        }
+    }
 }

@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class EditMilestonePage extends BaseMilestonePage {
-    private final static String pagePath = "index.php?/milestones/edit/";
+    private final static String pagePath = "index.php?/milestones/edit/%1$d";
     private final By acceptButtonLocator = By.xpath("//button[contains(.,'Save Milestone')]");
 
     public EditMilestonePage(WebDriver driver) {
@@ -18,7 +18,7 @@ public class EditMilestonePage extends BaseMilestonePage {
     }
 
     public void openPageByUrl(int milestoneId) {
-        super.openPageByUrl(pagePath + milestoneId);
+        super.openPageByUrl(String.format(pagePath, milestoneId));
     }
 
     public Button getAcceptButton() {

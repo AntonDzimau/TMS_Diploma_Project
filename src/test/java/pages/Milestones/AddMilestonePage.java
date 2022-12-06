@@ -1,12 +1,11 @@
 package pages.Milestones;
 
 import elements.Button;
-import entities.ProjectsEntities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class AddMilestonePage extends BaseMilestonePage {
-    private final static String pagePath = "index.php?/milestones/add/";
+    private static String pagePath = "index.php?/milestones/add/%1$d";
     private final By acceptButtonLocator = By.xpath("//button[contains(.,'Add Milestone')]");
 
     public AddMilestonePage(WebDriver driver) {
@@ -19,7 +18,9 @@ public class AddMilestonePage extends BaseMilestonePage {
     }
 
     public void openPageByUrl(int projectId) {
-        super.openPageByUrl(pagePath + projectId);
+        pagePath = String.format(pagePath, projectId);
+        System.out.println(pagePath);
+        super.openPageByUrl(pagePath);
     }
 
     public Button getAcceptButton() {
