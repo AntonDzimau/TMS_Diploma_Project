@@ -1,7 +1,6 @@
 package steps;
 
 import baseEntities.BaseStep;
-import entities.MilestoneEntities;
 import io.qameta.allure.Step;
 import models.Milestone;
 import org.openqa.selenium.WebDriver;
@@ -10,25 +9,17 @@ import pages.Milestones.ListOfMilestonesPage;
 
 public class MilestoneSteps extends BaseStep {
     AddMilestonePage addMilestonePage;
-    MilestoneEntities milestoneEntities;
     ListOfMilestonesPage listOfMilestonesPage;
 
     public MilestoneSteps(WebDriver driver) {
         super(driver);
         addMilestonePage = new AddMilestonePage(driver);
         listOfMilestonesPage = new ListOfMilestonesPage(driver);
-        milestoneEntities = new MilestoneEntities();
-    }
-
-    @Step
-    public void openPageByUrl(int projectId) {
-        addMilestonePage.openPageByUrl(projectId);
     }
 
     @Step
     public ListOfMilestonesPage addMilestoneToProject(int projectId, Milestone milestone) {
-        openPageByUrl(projectId);
-
+        addMilestonePage.openPageByUrl(projectId);
         addMilestonePage.getNameInput().sendKeys(milestone.getName());
         addMilestonePage.getReferencesInput().sendKeys(milestone.getReferences());
         addMilestonePage.getDescriptionArea().sendKeys(milestone.getDescription());
@@ -37,14 +28,22 @@ public class MilestoneSteps extends BaseStep {
         return listOfMilestonesPage;
     }
 
-    public boolean findMilestoneInList(Milestone targetMilestone) {
-        boolean flag = false;
-        for (int i = listOfMilestonesPage.getMilestonesLinks().size(); i > 0; i--) {
-            if (listOfMilestonesPage.getMilestonesLinks().get(i - 1).getText().contains(targetMilestone.getName())) {
-                flag = true;
+    @Step
+    public ListOfMilestonesPage removeCompletedMilestoneFromProject(int projectId, String milestoneName) throws InterruptedException {
+        listOfMilestonesPage.openPageByUrl(projectId);
+        Thread.sleep(1000);
+        System.out.println(listOfMilestonesPage.getListOfCompletedMilestones().getListOfRows().size());
+        for (int i = listOfMilestonesPage.getListOfCompletedMilestones().getListOfRows().size(); i > 0; i--) {
+            Thread.sleep(1000);
+            if (listOfMilestonesPage.getListOfCompletedMilestones().isFoundInTable(milestoneName)) {
+                listOfMilestonesPage.getListOfCompletedMilestones().getRow(milestoneName).getCell(3).getLinkFromCell().click();
+                Thread.sleep(1000);
+                listOfMilestonesPage.getAcceptRemovalButton().click();
+                Thread.sleep(1000);
+            } else {
                 break;
             }
         }
-        return flag;
+        return listOfMilestonesPage;
     }
 }

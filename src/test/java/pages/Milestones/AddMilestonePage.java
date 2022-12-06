@@ -18,9 +18,7 @@ public class AddMilestonePage extends BaseMilestonePage {
     }
 
     public void openPageByUrl(int projectId) {
-        pagePath = String.format(pagePath, projectId);
-        System.out.println(pagePath);
-        super.openPageByUrl(pagePath);
+        super.openPageByUrl(String.format(pagePath, projectId));
     }
 
     public Button getAcceptButton() {

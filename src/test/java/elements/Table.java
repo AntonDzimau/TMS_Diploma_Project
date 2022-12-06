@@ -114,4 +114,8 @@ public class Table {
     public UIElement getElementFromCell(UIElement cellElement, By by) {
         return cellElement.findElement(by);
     }
+
+    public boolean isDisplayed() {
+        return uiElement.isDisplayed();
+    }
 }

@@ -13,7 +13,6 @@ import pages.projects.ProjectDetailsPage;
 public class ProjectSteps extends BaseStep {
     AddProjectPage addProjectPage;
     DashboardPage dashboardPage;
-    ProjectsEntities projectsEntities;
     ListOfProjectsPage listOfProjectsPage;
     ProjectDetailsPage projectDetailsPage;
 
@@ -23,8 +22,6 @@ public class ProjectSteps extends BaseStep {
         addProjectPage = new AddProjectPage(driver);
         listOfProjectsPage = new ListOfProjectsPage(driver);
         projectDetailsPage = new ProjectDetailsPage(driver);
-        projectsEntities = new ProjectsEntities();
-
     }
 
     @Step
@@ -42,7 +39,7 @@ public class ProjectSteps extends BaseStep {
         addProjectPage.getAcceptButton().click();
         listOfProjectsPage.openPageByUrl();
         setIdToProject(targetProject);
-        System.out.println("second project after step " + projectsEntities.secondTypeProject.getId());
+        System.out.println("After adding id is - " + ProjectsEntities.secondTypeProject.getId());
         /** Вот эта проверка почему-то не работает, ПОЧЕМУ?!
          хочу, чтобы открывалась страница только тогда, когда она НЕ открыта!
          * */
@@ -89,11 +86,11 @@ public class ProjectSteps extends BaseStep {
                         .getCell(0)
                         .getLinkFromCell()
                         .getAttribute("href");
-                projectsEntities.getProject(targetProject.getName()).setId(
+                ProjectsEntities.getProject(targetProject.getName()).setId(
                         Integer.parseInt(
                                 link.substring(74))
                 );
-                System.out.println("second project after setting " + projectsEntities.secondTypeProject.getId());
+                System.out.println("After setting id is - " + ProjectsEntities.secondTypeProject.getId());
                 break;
             }
         }
