@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WaitsService {
@@ -27,7 +28,6 @@ public class WaitsService {
     public WebElement waitForVisibilityBy(By by) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
-
 
     public WebElement waitForClickableBy(By by) {
         return  wait.until(ExpectedConditions.elementToBeClickable(by));

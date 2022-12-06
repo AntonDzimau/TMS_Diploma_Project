@@ -3,6 +3,7 @@ package elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class RadioButton {
     public RadioButton(WebDriver driver, By by) {
         uiElement = new ArrayList<>();
         valuelist = new ArrayList<>();
-        textList=new ArrayList<>();
+        textList = new ArrayList<>();
 
         for (WebElement webElement : driver.findElements(by)) {
             UIElement someElement = new UIElement(driver, webElement);

@@ -1,43 +1,62 @@
 package tests.gui;
 
-import BaseEntities.BaseTest;
+import baseEntities.BaseTest;
 import configuration.ReadProperties;
-import jdk.jfr.Description;
+import entities.MilestoneEntities;
+import entities.ProjectsEntities;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.Milestones.ListOfMilestonesPage;
 
 public class ProjectTest extends BaseTest {
+
     @Test
-    public void successfulAddProjectTest (){
-        loginStep.loginSuccessful(ReadProperties.username(),ReadProperties.password());
-        addNewProjectStep.addNewProject();
-        addNewProjectStep.setNameProject("Some name");
-        addNewProjectStep.seTCheckBox();
-        addNewProjectStep.chooseRadioButtonAddProjectByValue("3");
-        addNewProjectStep.saveProject();
-        Assert.assertEquals("Congratulations! You have created your first project",addNewProjectStep.getSuccessfulTextForAddProject());
+    public void addSecondTypeProjectTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        Assert.assertTrue(
+                projectSteps.addProject(ProjectsEntities.secondTypeProject)
+                        .getListOfProjects()
+                        .isFoundInTable(ProjectsEntities.secondTypeProject.getName())
+        );
+        System.out.println("After test id is - " + ProjectsEntities.secondTypeProject.getId());
     }
 
-   /* @Test(description = "don put some name of project ")
-    public void unsuccessfulAddProjectTest(){
-        loginStep.loginSuccessful(ReadProperties.username(),ReadProperties.password());
-        addNewProjectStep.addNewProject();
-        addNewProjectStep.seTCheckBox();
-        addNewProjectStep.saveProject();
-        Assert.assertEquals("Field Name is a required field.",addNewProjectStep.getErrorText());
+
+    @Test(dependsOnMethods = "addSecondTypeProjectTest")
+    public void addCompletedMilestoneTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        Assert.assertTrue(
+                milestoneSteps.addMilestoneToProject(ProjectsEntities.secondTypeProject.getId(), MilestoneEntities.completedMilestone)
+                        .getListOfCompletedMilestones()
+                        .isFoundInTable(MilestoneEntities.completedMilestone.getName())
+        );
     }
-   /* @Test(description = "delete this test ")
-    public void successfulAddProjectTestDeleteMe () throws InterruptedException {
-        loginStep.loginSuccessful(ReadProperties.username(),ReadProperties.password());
-        addNewProjectStep.addNewProject();
-        addNewProjectStep.setNameProject("Some name");
-        addNewProjectStep.chooseRadioButtonAddProjectBytext("Use a single repository with baseline support");
-        Thread.sleep(5000);
-    } */
-    @Test(dependsOnMethods ="successfulAddProjectTest")
-    public void deleteProject(){
-        loginStep.loginSuccessful(ReadProperties.username(),ReadProperties.password());
-        addNewProjectStep.deleteProject();
-        Assert.assertEquals("Successfully deleted the project.",addNewProjectStep.getSuccessfulTextForDeleteProject());
+
+    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addCompletedMilestoneTest"})
+    public void removeCompletedMilestoneTest() throws InterruptedException {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        milestoneSteps.removeCompletedMilestoneFromProject(ProjectsEntities.secondTypeProject.getId(), MilestoneEntities.completedMilestone.getName());
+        ListOfMilestonesPage listOfMilestonesPage = new ListOfMilestonesPage(driver);
+        try {
+            Assert.assertFalse(listOfMilestonesPage
+                    .getListOfCompletedMilestones()
+                    .isFoundInTable(MilestoneEntities.completedMilestone.getName()));
+        } catch (TimeoutException e) {
+            System.out.println("Table doesn't exist! But I can check the error message text!");
+            Assert.assertEquals(
+                    listOfMilestonesPage.getMessageSuccessBox().getText()
+                    , "Successfully deleted the milestone (s).");
+        }
+    }
+
+    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addCompletedMilestoneTest", "removeCompletedMilestoneTest"})
+    public void removeSecondTypeProjectTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        Assert.assertFalse(
+                projectSteps.removeProjectsByName(ProjectsEntities.secondTypeProject.getName())
+                        .getListOfProjects()
+                        .isFoundInTable(ProjectsEntities.secondTypeProject.getName())
+        );
     }
 }
