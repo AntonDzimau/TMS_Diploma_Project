@@ -2,14 +2,22 @@ package tests.gui;
 
 import baseEntities.BaseTest;
 import configuration.ReadProperties;
+import elements.UIElement;
 import entities.MilestoneEntities;
 import entities.ProjectsEntities;
+import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.Milestones.ListOfMilestonesPage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProjectTest extends BaseTest {
+    private List<UIElement> uiElement;
 
     @Test
     public void addSecondTypeProjectTest() {
@@ -59,4 +67,32 @@ public class ProjectTest extends BaseTest {
                         .isFoundInTable(ProjectsEntities.secondTypeProject.getName())
         );
     }
+
+    @Test
+    public void addFirstTypeProjectTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        Assert.assertTrue(
+                projectSteps.addProject(ProjectsEntities.firstTypeProject)
+                        .getListOfProjects()
+                        .isFoundInTable(ProjectsEntities.firstTypeProject.getName())
+        );
+        System.out.println("After test id is - " + ProjectsEntities.firstTypeProject.getId());
+    }
+    @Test
+    public void someTest(String value) throws InterruptedException {
+        loginStep.loginSuccessful(ReadProperties.username(),ReadProperties.password());
+        driver.get("https://kunitsadzimaudiploma00.testrail.io/index.php?/cases/add/108");
+        WebElement element=driver.findElement(By.id("type_id_chzn"));
+        element.findElement(By.className("chzn-single")).click();
+
+        Thread.sleep(5000);
+        /*testCasesStep.addTestCases();
+        Thread.sleep(5000);*/
+
+
+    }
+
+
+
+
 }

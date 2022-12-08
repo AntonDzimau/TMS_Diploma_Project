@@ -12,6 +12,8 @@ public class LoginPage extends BasePage {
     private final By pswInputLocator = By.id("password");
     private final By loginButtonLocator = By.id("button_primary");
     private final By errorTextLocator = By.className("error-text");
+    private final By errorTextNoLoginLocator=By.xpath("//*[@id='content']/form/div[3]");
+    private final By errorTextNoPasswordLocator=By.xpath("//*[@id='content']/form/div[4]/div/div");
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -33,6 +35,9 @@ public class LoginPage extends BasePage {
     public Button getLoginButton() {
         return new Button(driver, waitsService.waitForClickableBy(loginButtonLocator)  );
     }
+    public WebElement getErrorTextNoLoginLocator(){
+        return waitsService.waitForVisibilityBy(errorTextNoLoginLocator);
+    }
 
     public void setEmail(String value) {
         getEmailInput().sendKeys(value);
@@ -48,5 +53,8 @@ public class LoginPage extends BasePage {
 
     public WebElement getErrorTextElement() {
         return waitsService.waitForVisibilityBy(errorTextLocator);
+    }
+    public WebElement getErrorTextNoPasswordLocator(){
+        return waitsService.waitForVisibilityBy(errorTextNoPasswordLocator);
     }
 }

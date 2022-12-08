@@ -4,6 +4,7 @@ import configuration.ReadProperties;
 import configuration.UpdateEnvironmentProperties;
 import entities.MilestoneEntities;
 import entities.ProjectsEntities;
+import entities.TestCasesEntities;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -15,6 +16,7 @@ import services.BrowsersService;
 import steps.MilestoneSteps;
 import steps.ProjectSteps;
 import steps.LoginStep;
+import steps.TestCasesStep;
 import utils.InvokedListener;
 
 @Listeners(InvokedListener.class)
@@ -27,6 +29,8 @@ public class BaseTest {
     protected MilestoneSteps milestoneSteps;
     protected ProjectsEntities projectsEntities;
     protected MilestoneEntities milestoneEntities;
+    protected TestCasesEntities testCasesEntities;
+    protected TestCasesStep testCasesStep;
 
     @BeforeMethod
     public void setUp(ITestContext iTestContext) {
@@ -50,6 +54,8 @@ public class BaseTest {
         milestoneSteps = new MilestoneSteps(driver);
         projectsEntities = new ProjectsEntities();
         milestoneEntities = new MilestoneEntities();
+        testCasesEntities=new TestCasesEntities();
+        testCasesStep=new TestCasesStep(driver);
     }
 
     @AfterMethod
