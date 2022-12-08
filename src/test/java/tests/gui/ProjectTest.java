@@ -19,11 +19,44 @@ public class ProjectTest extends BaseTest {
                         .getListOfProjects()
                         .isFoundInTable(ProjectsEntities.secondTypeProject.getName())
         );
-        System.out.println("After test id is - " + ProjectsEntities.secondTypeProject.getId());
+    }
+
+    @Test(dependsOnMethods = "addSecondTypeProjectTest")
+    public void addMilestoneWithHugeName() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        Assert.assertEquals(
+                milestoneSteps.addMilestoneToProject(ProjectsEntities.secondTypeProject.getId(), MilestoneEntities.completedMilestoneWithHugeName)
+                        .getListOfCompletedMilestones()
+                        .getListOfRows()
+                        .get(0)
+                        .getCell(1)
+                        .getLinkFromCell()
+                        .getText()
+                        .length()
+                , 250
+        );
+    }
+
+    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName"}, priority = 1)
+    public void removeHugeMilestoneWithActions() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        milestoneSteps.removeAllCompletedMilestonesWithActions(ProjectsEntities.secondTypeProject.getId());
+        ListOfMilestonesPage listOfMilestonesPage = new ListOfMilestonesPage(driver);
+        try {
+            Assert.assertFalse(listOfMilestonesPage
+                    .getListOfCompletedMilestones()
+                    .isFoundInTable(MilestoneEntities.completedMilestone.getName()));
+        } catch (TimeoutException e) {
+            System.out.println("Table doesn't exist! But I can check the error message text!");
+            Assert.assertEquals(
+                    listOfMilestonesPage.getMessageSuccessBox().getText()
+                    , "Successfully deleted the milestone (s).");
+        }
     }
 
 
-    @Test(dependsOnMethods = "addSecondTypeProjectTest")
+
+    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName"}, priority = 2)
     public void addCompletedMilestoneTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         Assert.assertTrue(
@@ -33,8 +66,8 @@ public class ProjectTest extends BaseTest {
         );
     }
 
-    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addCompletedMilestoneTest"})
-    public void removeCompletedMilestoneTest() throws InterruptedException {
+    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName", "addCompletedMilestoneTest"})
+    public void removeCompletedMilestoneTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         milestoneSteps.removeCompletedMilestoneFromProject(ProjectsEntities.secondTypeProject.getId(), MilestoneEntities.completedMilestone.getName());
         ListOfMilestonesPage listOfMilestonesPage = new ListOfMilestonesPage(driver);
@@ -50,7 +83,7 @@ public class ProjectTest extends BaseTest {
         }
     }
 
-    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addCompletedMilestoneTest", "removeCompletedMilestoneTest"})
+    @Test(priority = 3)
     public void removeSecondTypeProjectTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         Assert.assertFalse(

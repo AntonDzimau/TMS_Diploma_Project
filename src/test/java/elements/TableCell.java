@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TableCell {
     private UIElement uiElement;
 
@@ -21,5 +24,8 @@ public class TableCell {
 
     public UIElement getLinkFromCell() {
        return uiElement.findElement(By.tagName("a"));
+    }
+    public WebElement getLinkFromCellLikeWebElement() {
+        return uiElement.findElementLikeWeb(By.tagName("a"));
     }
 }
