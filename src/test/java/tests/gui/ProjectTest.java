@@ -4,12 +4,26 @@ import baseEntities.BaseTest;
 import configuration.ReadProperties;
 import entities.MilestoneEntities;
 import entities.ProjectsEntities;
+import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.Milestones.ListOfMilestonesPage;
+import pages.projects.AddProjectPage;
 
 public class ProjectTest extends BaseTest {
+
+    @Test
+    public void existPopUpTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        AddProjectPage addProjectPage = new AddProjectPage(driver);
+        addProjectPage.openPageByUrl();
+        Assert.assertEquals(
+                addProjectPage.getHelpLinkFormatting().getAttribute("tooltip-text")
+                , "Open the editor formatting reference.");
+    }
 
     @Test
     public void addSecondTypeProjectTest() {
