@@ -2,9 +2,9 @@ package baseEntities;
 
 import configuration.ReadProperties;
 import configuration.UpdateEnvironmentProperties;
-import entities.MilestoneEntities;
-import entities.ProjectsEntities;
-import entities.TestCasesEntities;
+import pages.projects.entities.MilestoneEntities;
+import pages.projects.entities.ProjectsEntities;
+import pages.projects.entities.TestCasesEntities;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -13,10 +13,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import services.BrowsersService;
-import steps.MilestoneSteps;
-import steps.ProjectSteps;
-import steps.LoginStep;
-import steps.TestCasesStep;
+import steps.*;
 import utils.InvokedListener;
 
 @Listeners(InvokedListener.class)
@@ -31,6 +28,8 @@ public class BaseTest {
     protected MilestoneEntities milestoneEntities;
     protected TestCasesEntities testCasesEntities;
     protected TestCasesStep testCasesStep;
+    protected FileDownloadStep fileDownloadStep;
+
 
     @BeforeMethod
     public void setUp(ITestContext iTestContext) {
@@ -56,6 +55,7 @@ public class BaseTest {
         milestoneEntities = new MilestoneEntities();
         testCasesEntities=new TestCasesEntities();
         testCasesStep=new TestCasesStep(driver);
+        fileDownloadStep=new FileDownloadStep(driver);
     }
 
     @AfterMethod

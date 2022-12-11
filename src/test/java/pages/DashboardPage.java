@@ -14,12 +14,13 @@ public class DashboardPage extends BasePage {
     private final By navigationUserLinkLocator = By.id("navigation-user");
     private final By addProjectLocator = By.id("sidebar-projects-add");
     private final By successfulTextLocatorDeleteProject = By.className("message-success");
-    private final By successfulTextLocatorAddProject=By.className("empty-title");
+    private final By successfulTextLocatorAddProject = By.className("empty-title");
     private final By administrationLink = By.id("navigation-admin");
     private final By allProjectLinkLocator = By.id("navigation-sub-projects");
     private final By deleteProjectLink = By.className("icon-small-delete");
     private final By deleteCheckBox = By.name("deleteCheckbox");
     private final By submitDelete = By.linkText("OK");
+    private final By goToTestCasesPageLocator = By.linkText("Test Cases");
 
     public DashboardPage(WebDriver driver) {
         super(driver);
@@ -69,8 +70,13 @@ public class DashboardPage extends BasePage {
     public UIElement successfulText() {
         return new UIElement(driver, waitsService.waitForVisibilityBy(successfulTextLocatorDeleteProject));
     }
-    public UIElement successfulTextAddProject(){
-        return new UIElement(driver,waitsService.waitForVisibilityBy(successfulTextLocatorAddProject));
+
+    public UIElement successfulTextAddProject() {
+        return new UIElement(driver, waitsService.waitForVisibilityBy(successfulTextLocatorAddProject));
+    }
+
+    public WebElement getgoToTestCasesPageLocator() {
+        return waitsService.waitForVisibilityBy(goToTestCasesPageLocator);
     }
 
     public WebElement getDeleteProjectLink() {
@@ -82,7 +88,7 @@ public class DashboardPage extends BasePage {
     }
 
     public CheckBox getSubmitDeleteLink() {
-        return new CheckBox(driver,waitsService.waitForVisibilityBy(submitDelete));
+        return new CheckBox(driver, waitsService.waitForVisibilityBy(submitDelete));
     }
 
     public void submitForDelete() {

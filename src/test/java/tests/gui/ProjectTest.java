@@ -3,18 +3,18 @@ package tests.gui;
 import baseEntities.BaseTest;
 import configuration.ReadProperties;
 import elements.UIElement;
-import entities.MilestoneEntities;
-import entities.ProjectsEntities;
+import org.openqa.selenium.InvalidArgumentException;
+import pages.projects.entities.MilestoneEntities;
+import pages.projects.entities.ProjectsEntities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.Milestones.ListOfMilestonesPage;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ProjectTest extends BaseTest {
     private List<UIElement> uiElement;
@@ -78,21 +78,27 @@ public class ProjectTest extends BaseTest {
         );
         System.out.println("After test id is - " + ProjectsEntities.firstTypeProject.getId());
     }
-    @Test
-    public void someTest(String value) throws InterruptedException {
-        loginStep.loginSuccessful(ReadProperties.username(),ReadProperties.password());
-        driver.get("https://kunitsadzimaudiploma00.testrail.io/index.php?/cases/add/108");
-        WebElement element=driver.findElement(By.id("type_id_chzn"));
-        element.findElement(By.className("chzn-single")).click();
 
-        Thread.sleep(5000);
-        /*testCasesStep.addTestCases();
-        Thread.sleep(5000);*/
-
-
+    @Test(dependsOnMethods = "addFirstTypeProjectTest")
+    public void addTectCasesTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        testCasesStep.goToTestCasesStep();
+        testCasesStep.addTestCasesStep();
+        Assert.assertEquals(testCasesStep.getSuccessfulText(), "Successfully added the new test case. Add another");
     }
 
+    @Test
+    public void deleteTestCasesTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        testCasesStep.deleteTestCasesStep();
+    }
 
-
-
+    @Test
+    public void downloadTest() throws InterruptedException {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        testCasesStep.goToTestCasesStep();
+        fileDownloadStep.downloadFile();
+        Assert.assertTrue(fileDownloadStep.assertFile());
+    }
 }
+

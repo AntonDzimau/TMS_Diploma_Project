@@ -44,6 +44,4 @@ public class LoginTest extends BaseTest {
                         getErrorTextNoPasswordLocator().getText()
                 , "Password is required.");
     }
-
-
 }

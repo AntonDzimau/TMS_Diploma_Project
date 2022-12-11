@@ -11,19 +11,20 @@ public class Button {
         this.uiElement = new UIElement(driver, by);
     }
 
-    public Button (WebDriver driver, WebElement webElement) {
+    public Button(WebDriver driver, WebElement webElement) {
         this.uiElement = new UIElement(driver, webElement);
     }
 
     public void click() {
-        if (isEnabled()){
+        if (isEnabled()) {
             uiElement.click();
         } else {
             System.out.println("Button isn't enabled!");
         }
     }
 
-    public boolean isEnabled(){
+    public boolean isEnabled() {
         return uiElement.isEnabled();
     }
+
 }

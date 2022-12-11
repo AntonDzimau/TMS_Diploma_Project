@@ -1,4 +1,4 @@
-package entities;
+package pages.projects.entities;
 
 import models.Milestone;
 
