@@ -94,6 +94,11 @@ public class UIElement implements WebElement {
         return new UIElement(driver, webElement.findElement(by));
     }
 
+
+    public WebElement findElementLikeWeb(By by) {
+        return webElement.findElement(by);
+    }
+
     @Override
     public boolean isDisplayed() {
         return webElement.isDisplayed();

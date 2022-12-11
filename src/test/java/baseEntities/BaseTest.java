@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import services.BrowsersService;
@@ -16,6 +17,10 @@ import steps.MilestoneSteps;
 import steps.ProjectSteps;
 import steps.LoginStep;
 import utils.InvokedListener;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 @Listeners(InvokedListener.class)
 public class BaseTest {
@@ -44,7 +49,6 @@ public class BaseTest {
             UpdateEnvironmentProperties.setProperty("browser.version", capabilities.getBrowserVersion());
             UpdateEnvironmentProperties.storeEnvProperties();
         }
-
         loginStep = new LoginStep(driver);
         projectSteps = new ProjectSteps(driver);
         milestoneSteps = new MilestoneSteps(driver);
@@ -55,5 +59,12 @@ public class BaseTest {
     @AfterMethod
     public void tearDown() {
         driver.quit();
+    }
+
+    @AfterTest
+    public void copyEnvironment() throws IOException {
+        File copied = new File("target/test-classes/environment.properties");
+        File target = new File("target/allure-results/environment.properties");
+        Files.copy(copied.toPath(), target.toPath());
     }
 }
