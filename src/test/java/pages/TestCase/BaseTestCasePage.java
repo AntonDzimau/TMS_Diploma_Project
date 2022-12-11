@@ -11,14 +11,12 @@ public abstract class BaseTestCasePage extends BasePage {
 
     private final By nameInputLocator = By.id("title");
     private final By predictionInput = By.id("custom_steps_display");
-    private final By stepInput = By.id("custom_steps_display");
     private final By expectedResultInput = By.id("custom_expected_display");
     private final By droupDownType = By.className("class");
-    private final By goToTestCasesPageLocator=By.linkText("Test Cases");
-    private final By deleteTestCases = By.xpath("//*[@id='section-1']/div[1]/a[1]/div");
-    private final By checkBoxedDeleteTestCases = By.xpath("/html/body/div[4]/div/div[1]/div[2]/div[17]/div/div/div/div[1]/a[2]/div");
-    private final By submitDeleteTestCases = By.xpath("//*[@id='deleteDialog']/div[3]/a[1]");
-
+    private final By checkBoxedToSelectAllTestCases = By.xpath("//*[@class='header sectionRow caseDroppable']/th[2]/input");
+    private final By deleteAllTestCases = By.id("deleteCases");
+    private final By deletePermanentlyTestCasesLocator = By.linkText("Delete Permanently");
+    private final By submitDeletePermanentlyTestCasesLocator = By.linkText("Delete Permanently");
 
     public BaseTestCasePage(WebDriver driver) {
         super(driver);
@@ -36,22 +34,20 @@ public abstract class BaseTestCasePage extends BasePage {
         return new Input(driver, waitsService.waitForVisibilityBy(expectedResultInput));
     }
 
-    public WebElement getDeleteTestCases() {
-        return waitsService.waitForVisibilityBy(deleteTestCases);
-    }
-    public WebElement getGoToTestCasesPageLocator(){
-        return waitsService.waitForVisibilityBy(goToTestCasesPageLocator);
+    public CheckBox getCheckBoxedToSelectAllTestCases() {
+        return new CheckBox(driver, waitsService.waitForVisibilityBy(checkBoxedToSelectAllTestCases));
     }
 
-    public Input getStepInput() {
-        return new Input(driver, waitsService.waitForVisibilityBy(stepInput));
+    public WebElement getDeleteAllTestCases() {
+        return waitsService.waitForVisibilityBy(deleteAllTestCases);
     }
 
-    public CheckBox getCheckBoxedDeleteTestCases() {
-        return new CheckBox(driver, waitsService.waitForVisibilityBy(checkBoxedDeleteTestCases));
+    public WebElement getDeletePermanentlyTestCasesLocator() {
+        return waitsService.waitForVisibilityBy(deletePermanentlyTestCasesLocator);
     }
 
-    public WebElement getSubmitDeleteTestCased() {
-        return waitsService.waitForVisibilityBy(submitDeleteTestCases);
+    public WebElement getSubmitDeletePermanentlyTestCasesLocator() {
+        return waitsService.waitForVisibilityBy(submitDeletePermanentlyTestCasesLocator);
     }
 }
+
