@@ -122,11 +122,12 @@ public class ProjectTest extends BaseTest {
         Assert.assertEquals(testCasesStep.getSuccessfulText(), "Successfully added the new test case. Add another");
     }
 
+    /**ToDo: ДОБАВИТЬ АССЕРТ!!!*/
     @Test(dependsOnMethods = "downloadTest")
     public void deleteTestCasesTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         testCasesStep.deleteTestCasesStep();
-        //Доделать проверку тест работает
+        /**!!!!Доделать проверку тест работает!!!!*/
     }
 
     @Test(dependsOnMethods = "addTestCasesTest")
