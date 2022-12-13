@@ -30,5 +30,4 @@ public class AddProjectPage extends BaseProjectPage{
     public WebElement getHelpLinkFormatting() {
         return waitsService.waitForVisibilityBy(helpLinkFormattingLocator);
     }
-
 }
