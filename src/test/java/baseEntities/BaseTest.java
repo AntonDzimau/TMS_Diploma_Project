@@ -33,7 +33,7 @@ public class BaseTest {
     protected MilestoneEntities milestoneEntities;
     protected TestCasesEntities testCasesEntities;
     protected TestCasesStep testCasesStep;
-    protected FileDownloadStep fileDownloadStep;
+    protected FileUploadStep fileUploadStep;
 
 
     @BeforeMethod
@@ -59,7 +59,7 @@ public class BaseTest {
         milestoneEntities = new MilestoneEntities();
         testCasesEntities=new TestCasesEntities();
         testCasesStep=new TestCasesStep(driver);
-        fileDownloadStep=new FileDownloadStep(driver);
+        fileUploadStep =new FileUploadStep(driver);
     }
 
     @AfterMethod
@@ -69,8 +69,23 @@ public class BaseTest {
 
     @AfterTest
     public void copyEnvironment() throws IOException {
-        File copied = new File("target/test-classes/environment.properties");
-        File target = new File("target/allure-results/environment.properties");
-        Files.copy(copied.toPath(), target.toPath());
+        File targetFolder = new File("target/allure-results/");
+        File copiedFile = new File("target/test-classes/environment.properties");
+        File targetFile = new File("target/allure-results/environment.properties");
+        File[] listOfFiles = targetFolder.listFiles();
+        boolean found = false;
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                if (file.getName().matches("environment.properties")) {
+                    found = true;
+                }
+            }
+        }
+        if (!found){
+            Files.copy(copiedFile.toPath(), targetFile.toPath());
+            System.out.println("File copied!");
+        } else {
+            System.out.println("File is already exist!");
+        }
     }
 }

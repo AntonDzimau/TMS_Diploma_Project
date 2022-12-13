@@ -2,18 +2,31 @@ package tests.gui;
 
 import baseEntities.BaseTest;
 import configuration.ReadProperties;
-import pages.projects.entities.MilestoneEntities;
-import pages.projects.entities.ProjectsEntities;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.Milestones.ListOfMilestonesPage;
 import pages.projects.AddProjectPage;
+import pages.projects.entities.MilestoneEntities;
+import pages.projects.entities.ProjectsEntities;
 
+public class AntonTests extends BaseTest {
+    @Test(groups = "Anton's tests")
+    public void loginSuccessful() {
+        Assert.assertTrue(
+                loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password())
+                        .isPageOpened());
+    }
 
-public class ProjectTest extends BaseTest {
+    @Test (groups = "Anton's tests")
+    public void loginUnsuccessful() {
+        Assert.assertEquals(
+                loginStep.loginIncorrect("some name", ReadProperties.password())
+                        .getErrorTextElement().getText()
+                , "Email/Login or Password is incorrect. Please try again.");
+    }
 
-    @Test
+    @Test (groups = "Anton's tests")
     public void existPopUpTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         AddProjectPage addProjectPage = new AddProjectPage(driver);
@@ -23,7 +36,7 @@ public class ProjectTest extends BaseTest {
                 , "Open the editor formatting reference.");
     }
 
-    @Test
+    @Test  (groups = "Anton's tests")
     public void addSecondTypeProjectTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         Assert.assertTrue(
@@ -33,7 +46,7 @@ public class ProjectTest extends BaseTest {
         );
     }
 
-    @Test(dependsOnMethods = "addSecondTypeProjectTest")
+    @Test(groups = "Anton's tests", dependsOnMethods = "addSecondTypeProjectTest")
     public void addMilestoneWithHugeName() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         Assert.assertEquals(
@@ -49,7 +62,7 @@ public class ProjectTest extends BaseTest {
         );
     }
 
-    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName"}, priority = 1)
+    @Test(groups = "Anton's tests", dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName"}, priority = 1)
     public void removeHugeMilestoneWithActions() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         milestoneSteps.removeAllCompletedMilestonesWithActions(ProjectsEntities.secondTypeProject.getId());
@@ -66,7 +79,7 @@ public class ProjectTest extends BaseTest {
         }
     }
 
-    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName"}, priority = 2)
+    @Test(groups = "Anton's tests", dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName"}, priority = 2)
     public void addCompletedMilestoneTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         Assert.assertTrue(
@@ -76,7 +89,7 @@ public class ProjectTest extends BaseTest {
         );
     }
 
-    @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName", "addCompletedMilestoneTest"})
+    @Test(groups = "Anton's tests", dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName", "addCompletedMilestoneTest"})
     public void removeCompletedMilestoneTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         milestoneSteps.removeCompletedMilestoneFromProject(ProjectsEntities.secondTypeProject.getId(), MilestoneEntities.completedMilestone.getName());
@@ -93,7 +106,7 @@ public class ProjectTest extends BaseTest {
         }
     }
 
-    @Test(priority = 3)
+    @Test(groups = "Anton's tests", priority = 3)
     public void removeSecondTypeProjectTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         Assert.assertFalse(
@@ -102,50 +115,4 @@ public class ProjectTest extends BaseTest {
                         .isFoundInTable(ProjectsEntities.secondTypeProject.getName())
         );
     }
-
-    @Test
-    public void addFirstTypeProjectTest() {
-        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
-        Assert.assertTrue(
-                projectSteps.addProject(ProjectsEntities.firstTypeProject)
-                        .getListOfProjects()
-                        .isFoundInTable(ProjectsEntities.firstTypeProject.getName())
-        );
-        System.out.println("After test id is - " + ProjectsEntities.firstTypeProject.getId());
-    }
-
-    @Test(dependsOnMethods = "addFirstTypeProjectTest")
-    public void addTestCasesTest() {
-        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
-        testCasesStep.goToTestCasesStep();
-        testCasesStep.addTestCasesStep();
-        Assert.assertEquals(testCasesStep.getSuccessfulText(), "Successfully added the new test case. Add another");
-    }
-
-    /**ToDo: ДОБАВИТЬ АССЕРТ!!!*/
-    @Test(dependsOnMethods = "downloadTest")
-    public void deleteTestCasesTest() {
-        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
-        testCasesStep.deleteTestCasesStep();
-        /**!!!!Доделать проверку тест работает!!!!*/
-    }
-
-    @Test(dependsOnMethods = "addTestCasesTest")
-    public void downloadTest() throws InterruptedException {
-        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
-        testCasesStep.goToTestCasesStep();
-        fileDownloadStep.downloadFile();
-        Assert.assertTrue(fileDownloadStep.assertFile());
-    }
-
-    @Test(dependsOnMethods = {"deleteTestCasesTest"})
-    public void removeFirstTypeProjectTest() {
-        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
-        Assert.assertFalse(
-                projectSteps.removeProjectsByName(ProjectsEntities.firstTypeProject.getName())
-                        .getListOfProjects()
-                        .isFoundInTable(ProjectsEntities.firstTypeProject.getName())
-        );
-    }
 }
-

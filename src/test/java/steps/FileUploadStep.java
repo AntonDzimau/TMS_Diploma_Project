@@ -1,38 +1,41 @@
 package steps;
 
 import baseEntities.BaseStep;
+import io.qameta.allure.Step;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
 import pages.TestCase.AddTestCasePage;
 
-public class FileDownloadStep extends BaseStep {
+public class FileUploadStep extends BaseStep {
 
     AddTestCasePage addTestCasePage;
 
-    public FileDownloadStep(WebDriver driver) {
+    public FileUploadStep(WebDriver driver) {
         super(driver);
         addTestCasePage = new AddTestCasePage(driver);
     }
 
-    public void downloadFile() throws InterruptedException {
-        addTestCasePage.getDownloadPageLocator().click();
+    @Step
+    public void uploadFile() throws InterruptedException {
+        addTestCasePage.getUploadPageLocator().click();
         String pathToFile;
         try {
             pathToFile = this.getClass().getClassLoader().getResource("3-martin-adams-764547-unsplash.jpeg").getPath();
-            addTestCasePage.getDownloadButtonLocator().sendKeys(pathToFile);
+            addTestCasePage.getUploadButtonLocator().sendKeys(pathToFile);
         } catch (InvalidArgumentException e) {
             pathToFile = this.getClass().getClassLoader().getResource("3-martin-adams-764547-unsplash.jpeg").getPath().substring(1);
-            addTestCasePage.getDownloadButtonLocator().sendKeys(pathToFile);
+            addTestCasePage.getUploadButtonLocator().sendKeys(pathToFile);
         } finally {
+            //ToDo: Попробовать сделать какое-то другое ожидание
             Thread.sleep(5000);
-            addTestCasePage.getAcceptDownload().click();
+            addTestCasePage.getAcceptUpload().click();
         }
-
     }
 
     public boolean assertFile() throws InterruptedException {
+        //ToDo: Попробовать сделать какое-то другое ожидание
         Thread.sleep(5000);
-        return addTestCasePage.getDownloadFileLocator().isEnabled();
+        return addTestCasePage.getUploadFileLocator().isEnabled();
     }
 
 }

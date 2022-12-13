@@ -76,10 +76,9 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
-                    <!--
                     <suiteXmlFiles>
-                        <suiteXmlFile>target/test-classes/group.xml</suiteXmlFile>
-                    </suiteXmlFiles> -->
+                        <suiteXmlFile>src/test/resources/mainParallelRun.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
                 <dependencies>
                     <dependency>
