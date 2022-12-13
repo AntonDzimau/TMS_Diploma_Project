@@ -66,8 +66,6 @@ public class ProjectTest extends BaseTest {
         }
     }
 
-
-
     @Test(dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName"}, priority = 2)
     public void addCompletedMilestoneTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
