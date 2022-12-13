@@ -1,7 +1,7 @@
 package steps;
 
 import baseEntities.BaseStep;
-import entities.ProjectsEntities;
+import pages.projects.entities.ProjectsEntities;
 import io.qameta.allure.Step;
 import models.Project;
 import org.openqa.selenium.WebDriver;
