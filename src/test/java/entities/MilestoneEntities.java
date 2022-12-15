@@ -1,4 +1,4 @@
-package pages.projects.entities;
+package entities;
 
 import models.Milestone;
 
@@ -23,5 +23,14 @@ public class MilestoneEntities {
             .references("Some reference")
             .description("Description of incompleted Milestone 2")
             .isCompleted(false)
+            .build();
+
+    static public Milestone milestoneForApiTest = Milestone.builder()
+            .name("Milestone that was added with API test")
+            .references("Some reference")
+            .description("Description of the new milestone")
+            .isCompleted(false)
+            .startOn(1671094800)
+            .dueOn(1671699600)
             .build();
 }

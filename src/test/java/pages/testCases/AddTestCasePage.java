@@ -1,4 +1,4 @@
-package pages.TestCase;
+package pages.testCases;
 
 import elements.Button;
 import org.openqa.selenium.By;

@@ -1,4 +1,4 @@
-package pages.projects.entities;
+package entities;
 
 import models.Project;
 
@@ -27,6 +27,13 @@ public class ProjectsEntities {
             .type("3")
             .build();
 
+    public final static Project testProjectForSmokeTest = Project.builder()
+            .name("Test Project for Smoke")
+            .announcement("Some description")
+            .showAnnouncement(false)
+            .type("1")
+            .build();
+
     public static Project getProject(String projectName) {
         if (Objects.equals(secondTypeProject.getName(), projectName)) {
             return secondTypeProject;
@@ -34,6 +41,8 @@ public class ProjectsEntities {
             return firstTypeProject;
         } else if (Objects.equals(thirdTypeProject.getName(), projectName)) {
             return thirdTypeProject;
+        } else if (Objects.equals(testProjectForSmokeTest.getName(), projectName)) {
+            return testProjectForSmokeTest;
         } else {
             return null;
         }

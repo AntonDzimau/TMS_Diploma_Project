@@ -5,8 +5,8 @@ import io.qameta.allure.Step;
 import models.Milestone;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
-import pages.Milestones.AddMilestonePage;
-import pages.Milestones.ListOfMilestonesPage;
+import pages.milestones.AddMilestonePage;
+import pages.milestones.ListOfMilestonesPage;
 import pages.projects.ListOfProjectsPage;
 
 public class MilestoneSteps extends BaseStep {

@@ -1,7 +1,7 @@
 package steps;
 
 import baseEntities.BaseStep;
-import pages.projects.entities.ProjectsEntities;
+import entities.ProjectsEntities;
 import io.qameta.allure.Step;
 import models.Project;
 import org.openqa.selenium.WebDriver;
@@ -78,7 +78,7 @@ public class ProjectSteps extends BaseStep {
         for (int i = listOfProjectsPage.getListOfProjects().getListOfRows().size(), j = 0; i > 1; i--) {
             j++;
             if (listOfProjectsPage.getListOfProjects().getListOfRows().get(i - 1).getCell(0).getLinkFromCell().getText().contains(targetProject.getName())) {
-                //System.out.println("Я нашел нужный проект! Его номер снизу - " + j);
+                System.out.println("Я нашел нужный проект! Его номер снизу - " + j);
                 String link = listOfProjectsPage.getListOfProjects()
                         .getRow(listOfProjectsPage.getListOfProjects().getListOfRows().size() - j)
                         .getCell(0)
@@ -88,6 +88,7 @@ public class ProjectSteps extends BaseStep {
                         Integer.parseInt(
                                 link.substring(74))
                 );
+                System.out.println(ProjectsEntities.getProject(targetProject.getName()).getId());
                 break;
             }
         }

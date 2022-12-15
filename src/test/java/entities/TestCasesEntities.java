@@ -1,4 +1,4 @@
-package pages.projects.entities;
+package entities;
 
 
 import models.TestCases;
