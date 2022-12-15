@@ -79,7 +79,7 @@ public class AntonTests extends BaseTest {
         }
     }
 
-    @Test(groups = "Anton's tests", dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName"}, priority = 2)
+    @Test(groups = "Anton's tests", dependsOnMethods = {"addSecondTypeProjectTest"}, priority = 2)
     public void addCompletedMilestoneTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         Assert.assertTrue(
