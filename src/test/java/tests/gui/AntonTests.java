@@ -89,7 +89,7 @@ public class AntonTests extends BaseTest {
         );
     }
 
-    @Test(groups = "Anton's tests", dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName", "addCompletedMilestoneTest"})
+/*    @Test(groups = "Anton's tests", dependsOnMethods = {"addSecondTypeProjectTest", "addMilestoneWithHugeName", "addCompletedMilestoneTest"})
     public void removeCompletedMilestoneTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         milestoneSteps.removeCompletedMilestoneFromProject(ProjectsEntities.secondTypeProject.getId(), MilestoneEntities.completedMilestone.getName());
@@ -104,7 +104,7 @@ public class AntonTests extends BaseTest {
                     listOfMilestonesPage.getMessageSuccessBox().getText()
                     , "Successfully deleted the milestone (s).");
         }
-    }
+    }*/
 
     @Test(groups = "Anton's tests", priority = 3)
     public void removeSecondTypeProjectTest() {
