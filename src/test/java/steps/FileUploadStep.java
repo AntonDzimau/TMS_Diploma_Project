@@ -4,6 +4,7 @@ import baseEntities.BaseStep;
 import io.qameta.allure.Step;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Wait;
 import pages.testCases.AddTestCasePage;
 
 public class FileUploadStep extends BaseStep {
@@ -26,8 +27,8 @@ public class FileUploadStep extends BaseStep {
             pathToFile = this.getClass().getClassLoader().getResource("3-martin-adams-764547-unsplash.jpeg").getPath().substring(1);
             addTestCasePage.getUploadButtonLocator().sendKeys(pathToFile);
         } finally {
-            //ToDo: Попробовать сделать какое-то другое ожидание
             Thread.sleep(5000);
+            //ToDo: Другие ожидания
             addTestCasePage.getAcceptUpload().click();
         }
     }

@@ -1,6 +1,7 @@
 package entities;
 
 
+
 import models.TestCases;
 
 public class TestCasesEntities {
@@ -9,5 +10,13 @@ public class TestCasesEntities {
             .steps("Some name")
             .preconditions("Some name ")
             .expectedResult("Some name ")
+            .build();
+
+
+    static public TestCases testCasesForApiTest = TestCases.builder()
+            .title("Title For Api")
+            .type(6)
+            .priority(1)
+            .references("RFC-1, RFC-2")
             .build();
 }

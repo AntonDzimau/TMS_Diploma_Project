@@ -17,4 +17,8 @@ public class Project {
     private boolean access;
     private boolean deleted;
     private int id;
+    private boolean isShowAnnouncement;
+    private int TypeOfProject;
+
+
 }

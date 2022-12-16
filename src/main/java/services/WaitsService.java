@@ -27,6 +27,9 @@ public class WaitsService {
     public WebElement waitForVisibilityBy(By by) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
+    public WebElement waitForClick(By by){
+        return wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
 
     public WebElement waitForClickableBy(By by) {
         return  wait.until(ExpectedConditions.elementToBeClickable(by));

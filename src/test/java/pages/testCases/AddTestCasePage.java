@@ -16,6 +16,8 @@ public class AddTestCasePage extends BaseTestCasePage {
     private final By addTestcasesLocator = By.id("sidebar-cases-add");
     private final By successfulTextLocator = By.className("message-success");
 
+    private final By deleteTectCasesLocator=By.className("caseRow");
+
 
     public AddTestCasePage(WebDriver driver) {
         super(driver);
@@ -38,8 +40,12 @@ public class AddTestCasePage extends BaseTestCasePage {
     public WebElement getUploadButtonLocator() {
         return driver.findElement(uploadButtonLocator);
     }
+    public WebElement getDeleteTectCasesLocator(){
+        return driver.findElement(deleteTectCasesLocator);
+    }
 
     public WebElement getAcceptUpload() {
+
         return driver.findElement(acceptUploadLocator);
     }
 
