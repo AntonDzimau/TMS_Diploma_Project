@@ -2,9 +2,9 @@ package steps;
 
 import baseEntities.BaseTest;
 import pages.DashboardPage;
-import pages.projects.entities.TestCasesEntities;
+import entities.TestCasesEntities;
 import org.openqa.selenium.WebDriver;
-import pages.TestCase.AddTestCasePage;
+import pages.testCases.AddTestCasePage;
 
 public class TestCasesStep extends BaseTest {
     AddTestCasePage addTestCasePage;

@@ -2,9 +2,9 @@ package baseEntities;
 
 import configuration.ReadProperties;
 import configuration.UpdateEnvironmentProperties;
-import pages.projects.entities.MilestoneEntities;
-import pages.projects.entities.ProjectsEntities;
-import pages.projects.entities.TestCasesEntities;
+import entities.MilestoneEntities;
+import entities.ProjectsEntities;
+import entities.TestCasesEntities;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;

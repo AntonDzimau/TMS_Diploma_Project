@@ -1,4 +1,4 @@
-package pages.Milestones;
+package pages.milestones;
 
 import elements.Button;
 import org.openqa.selenium.By;

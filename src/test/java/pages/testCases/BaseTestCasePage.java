@@ -1,4 +1,4 @@
-package pages.TestCase;
+package pages.testCases;
 
 import baseEntities.BasePage;
 import elements.CheckBox;

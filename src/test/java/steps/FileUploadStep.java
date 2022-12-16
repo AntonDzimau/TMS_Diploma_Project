@@ -4,7 +4,7 @@ import baseEntities.BaseStep;
 import io.qameta.allure.Step;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
-import pages.TestCase.AddTestCasePage;
+import pages.testCases.AddTestCasePage;
 
 public class FileUploadStep extends BaseStep {
 

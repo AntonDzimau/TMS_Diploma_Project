@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Main Suite" thread-count="2" parallel="classes">
-    <test name="Diploma tests">
+<suite name="Main Suite" thread-count="2" parallel="tests">
+    <test name="Diploma smoke tests">
         <classes>
-            <class name="tests.gui.AntonTests"/>
-            <class name="tests.gui.NikitaTests"/>
+            <class name="tests.api.SmokeAPITests"/>
+            <class name="tests.gui.SmokeTests"/>
+        </classes>
+    </test>
+    <test name="Diploma regression tests">
+        <classes>
+            <class name="tests.api.RegressionAPITests"/>
+            <class name="tests.gui.RegressionTests"/>
         </classes>
     </test>
 </suite>
