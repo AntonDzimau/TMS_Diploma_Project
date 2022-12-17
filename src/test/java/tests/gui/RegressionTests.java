@@ -61,16 +61,13 @@ public class RegressionTests extends BaseTest {
         Assert.assertEquals(testCasesStep.getSuccessfulText(), "Successfully added the new test case. Add another");
     }
 
-    /**
-     * ToDo: ДОБАВИТЬ АССЕРТ!!!
-     */
     @Test(dependsOnMethods = "uploadTest"
             , description = "Удаление тест-кейса"
             , groups = {"Nikita's tests", "regression"})
     public void deleteTestCasesTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         testCasesStep.deleteTestCasesStep();
-        /**!!!!Доделать проверку тест работает!!!!*/
+        Assert.assertTrue(testCasesStep.checkForDelete());
     }
 
     @Test(dependsOnMethods = "addTestCasesTest"

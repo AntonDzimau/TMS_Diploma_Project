@@ -40,4 +40,8 @@ public class TestCasesStep extends BaseTest {
         addTestCasePage.getDeletePermanentlyTestCasesLocator().click();
         addTestCasePage.getSubmitDeletePermanentlyTestCasesLocator().click();
     }
+
+    public boolean checkForDelete(){
+        return addTestCasePage.getDeleteTectCasesLocator().isDisplayed();
+    }
 }

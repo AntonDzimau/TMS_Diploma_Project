@@ -1,8 +1,13 @@
 package tests.api;
 
 import baseEntities.BaseAPITest;
+import entities.ProjectsEntities;
+import entities.UserEntities;
+import io.restassured.mapper.ObjectMapperType;
+import io.restassured.response.Response;
 import models.Project;
 import org.apache.http.HttpStatus;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.Endpoints;
 
@@ -41,5 +46,48 @@ public class RegressionAPITests extends BaseAPITest {
                 .then()
                 .log().body()
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
+    }
+
+    @Test
+    public void addNewProject() {
+        Response response = given()
+                .body(ProjectsEntities.testProjectForApi, ObjectMapperType.GSON)
+                .log().body()
+                .when()
+                .post(Endpoints.ADD_PROJECT)
+                .then()
+                .log().body()
+                .statusCode(HttpStatus.SC_OK)
+                .extract().response();
+
+        Assert.assertEquals(response.getBody().jsonPath().get("name"), ProjectsEntities.testProjectForApi.getName());
+    }
+
+    @Test(dependsOnMethods = "addNewProject" ,
+            description = "Получение всех проектов через API запрос"
+            , groups = {"Nikita tests", "regression"})
+    public void getProjectTest() {
+        given()
+                .when()
+                .get(Endpoints.GET_ALL_PROJECTS)
+                .then()
+                .log().status()
+                .log().body()
+                .body("projects.get(0).name", is("Project to Anton's API tests"))
+                .body("projects.get(1).name", is("Project For Api Nikita"))
+                .statusCode(HttpStatus.SC_OK);
+    }
+
+    @Test(description = "Получение всех юзеров через API запрос"
+            , groups = {"Nikita tests", "regression"})
+    public void getAllUser() {
+        given()
+                .when()
+                .get(Endpoints.GET_ALL_USERS)
+                .then()
+                .log().body()
+                .body("get(0).name", is(UserEntities.UserForApiTest.getName()))
+                .body("get(0).id", is(UserEntities.UserForApiTest.getId()))
+                .statusCode(HttpStatus.SC_OK);
     }
 }

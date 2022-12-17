@@ -47,4 +47,10 @@ public class ProjectsEntities {
             return null;
         }
     }
+    public final static Project testProjectForApi = Project.builder()
+            .name("Project For Api Nikita")
+            .announcement("Some info")
+            .isShowAnnouncement(true)
+            .TypeOfProject(1)
+            .build();
 }

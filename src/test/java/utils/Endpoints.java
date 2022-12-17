@@ -9,4 +9,5 @@ public class Endpoints {
     public static final String ADD_TESTCASE = "index.php?/api/v2/add_case/{section_id}";
     public static final String ADD_PROJECT = "index.php?/api/v2/add_project";
     public static final String UPDATE_PROJECT = "index.php?/api/v2/update_project/{project_id}";
+    public static final String Delete_TESTCASE="index.php?/api/v2/delete_case/{case_id}";
 }
