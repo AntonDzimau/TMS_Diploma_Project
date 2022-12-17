@@ -48,7 +48,8 @@ public class RegressionAPITests extends BaseAPITest {
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
-    @Test
+    @Test(description = "Добавление нового проекта через API"
+            , groups = {"Nikita's tests", "regression"})
     public void addNewProject() {
         Response response = given()
                 .body(ProjectsEntities.testProjectForApi, ObjectMapperType.GSON)
@@ -63,8 +64,8 @@ public class RegressionAPITests extends BaseAPITest {
         Assert.assertEquals(response.getBody().jsonPath().get("name"), ProjectsEntities.testProjectForApi.getName());
     }
 
-    @Test(dependsOnMethods = "addNewProject" ,
-            description = "Получение всех проектов через API запрос"
+    @Test(dependsOnMethods = "addNewProject"
+            , description = "Получение всех проектов через API запрос"
             , groups = {"Nikita tests", "regression"})
     public void getProjectTest() {
         given()
