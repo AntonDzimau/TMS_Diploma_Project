@@ -63,7 +63,8 @@ public class RegressionAPITests extends BaseAPITest {
         Assert.assertEquals(response.getBody().jsonPath().get("name"), ProjectsEntities.testProjectForApi.getName());
     }
 
-    @Test(dependsOnMethods = "addNewProject", description = "Получение всех проектов через API запрос"
+    @Test(dependsOnMethods = "addNewProject" ,
+            description = "Получение всех проектов через API запрос"
             , groups = {"Nikita tests", "regression"})
     public void getProjectTest() {
         given()

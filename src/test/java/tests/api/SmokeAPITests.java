@@ -61,7 +61,8 @@ public class SmokeAPITests extends BaseAPITest {
         Assert.assertEquals(actualTestCases, TestCasesEntities.testCasesForApiTest);
     }
 
-    @Test(dependsOnMethods = "addTestCasesTest", description = "Добавление тест-кейса через API запрос"
+    @Test(dependsOnMethods = "addTestCasesTest"
+            , description = "Удаление тест-кейса через API запрос"
             , groups = {"Nikita's tests", "smoke"})
     public void DeleteTestCasesTest() {
         given()
