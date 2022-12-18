@@ -56,28 +56,31 @@ public class RegressionTests extends BaseTest {
             , groups = {"Nikita's tests", "regression"})
     public void addTestCasesTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
-        testCasesStep.goToTestCasesStep();
-        testCasesStep.addTestCasesStep();
-        Assert.assertEquals(testCasesStep.getSuccessfulText(), "Successfully added the new test case. Add another");
+        testCasesStep.goToAddTestCasePage(ProjectsEntities.firstTypeProject.getId());
+        Assert.assertEquals(
+                testCasesStep.addTestCase().getSuccessfulText().getText()
+                , "Successfully added the new test case. Add another"
+        );
     }
 
-    @Test(dependsOnMethods = {"addTestCasesTest", "addFirstTypeProjectTest"}
+    @Test(dependsOnMethods = {"addFirstTypeProjectTest", "addTestCasesTest"}
             , description = "Загрузка файла при создании тест-кейса"
             , groups = {"Nikita's tests", "regression"})
     public void uploadTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
-        testCasesStep.goToTestCasesStep();
+        testCasesStep.goToAddTestCasePage(ProjectsEntities.firstTypeProject.getId());
         fileUploadStep.uploadFile();
         Assert.assertTrue(fileUploadStep.didUploadedFileFindInListAttachment("Nirvana_Something_In_The_Way.mp3"));
     }
 
-    @Test(dependsOnMethods = "uploadTest"
+    @Test(dependsOnMethods = {"addFirstTypeProjectTest", "addTestCasesTest"}
             , description = "Удаление тест-кейса"
             , groups = {"Nikita's tests", "regression"})
     public void deleteTestCasesTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
-        testCasesStep.deleteTestCasesStep();
-        Assert.assertTrue(testCasesStep.checkForDelete());
+        Assert.assertTrue(
+                testCasesStep.deleteAllTestCasesInProject(ProjectsEntities.firstTypeProject.getId())
+        );
     }
 
     @Test(dependsOnMethods = "deleteTestCasesTest"

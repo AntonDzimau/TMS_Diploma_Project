@@ -4,13 +4,13 @@
     <test name="Diploma smoke tests">
         <classes>
             <class name="tests.api.SmokeAPITests"/>
-           <!-- <class name="tests.gui.SmokeTests"/>-->
+            <class name="tests.gui.SmokeTests"/>
         </classes>
     </test>
     <test name="Diploma regression tests">
         <classes>
             <class name="tests.api.RegressionAPITests"/>
-            <!--<class name="tests.gui.RegressionTests"/>-->
+            <class name="tests.gui.RegressionTests"/>
         </classes>
     </test>
 </suite>

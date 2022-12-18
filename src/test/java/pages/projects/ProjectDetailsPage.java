@@ -4,13 +4,18 @@ import baseEntities.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pages.projects.tabs.TestCasesTab;
 
 public class ProjectDetailsPage extends BasePage {
-    private final static String pagePath = "index.php?/projects/overview/";
+    private final static String pagePath = "index.php?/projects/overview/%1$d";
     private final By contentHeaderIdLocator = By.cssSelector(".content-header-id");
+    private final By testCasesTabLinkLocator = By.linkText("Test Cases");
+
+    public TestCasesTab testCasesTab;
 
     public ProjectDetailsPage(WebDriver driver) {
         super(driver);
+        testCasesTab = new TestCasesTab(driver);
     }
 
     @Override
@@ -18,16 +23,15 @@ public class ProjectDetailsPage extends BasePage {
         return contentHeaderIdLocator;
     }
 
-    public void openPageByUrl() {
-        super.openPageByUrl(pagePath + getProjectId());
+    public void openPageByUrl(int projectId) {
+        super.openPageByUrl(String.format(pagePath, projectId));
     }
 
-    public WebElement getContentHeaderId() {
-        return waitsService.waitForVisibilityBy(contentHeaderIdLocator);
+    public WebElement getLinkToTestCasesTab() {
+        return waitsService.waitForVisibilityBy(testCasesTabLinkLocator);
     }
 
-    public int getProjectId() {
-        return Integer.parseInt(getContentHeaderId().getText().substring(1));
+    public void goToTestCasesTab() {
+        getLinkToTestCasesTab().click();
     }
-
 }
