@@ -18,15 +18,15 @@ public class TestCasesStep extends BaseTest {
     }
 
     public void goToTestCasesStep() {
-        dashboardPage.getgoToTestCasesPageLocator().click();
-        addTestCasePage.getAddTestcasesLocator().click();
+        dashboardPage.getLinkToTestCasesPage().click();
+        addTestCasePage.getAddTestCases().click();
     }
 
     public void addTestCasesStep() {
         addTestCasePage.getNameInputLocator().sendKeys(TestCasesEntities.firstTestcases.getName());
         addTestCasePage.getExpectedResultInput().sendKeys(TestCasesEntities.firstTestcases.getExpectedResult());
         addTestCasePage.getPredictionInput().sendKeys(TestCasesEntities.firstTestcases.getPreconditions());
-        addTestCasePage.getAcceptButtonLocator().click();
+        addTestCasePage.getAcceptButton().click();
     }
 
     public String getSuccessfulText() {
@@ -34,7 +34,7 @@ public class TestCasesStep extends BaseTest {
     }
 
     public void deleteTestCasesStep() {
-        dashboardPage.getgoToTestCasesPageLocator().click();
+        dashboardPage.goToTestCasesPage();
         addTestCasePage.getCheckBoxedToSelectAllTestCases().setFlag();
         addTestCasePage.getDeleteAllTestCases().click();
         addTestCasePage.getDeletePermanentlyTestCasesLocator().click();
@@ -42,6 +42,6 @@ public class TestCasesStep extends BaseTest {
     }
 
     public boolean checkForDelete(){
-        return addTestCasePage.getDeleteTectCasesLocator().isDisplayed();
+        return addTestCasePage.getDeleteTestCases().isDisplayed();
     }
 }

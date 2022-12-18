@@ -26,7 +26,7 @@ public class RegressionTests extends BaseTest {
     public void loginUnsuccessfulEmptyLogin() {
         Assert.assertEquals(
                 loginStep.loginIncorrect("", ReadProperties.password()).
-                        getErrorTextNoLoginLocator().getText()
+                        getErrorTextNoLogin().getText()
                 , "Email/Login is required.");
     }
 
@@ -35,7 +35,7 @@ public class RegressionTests extends BaseTest {
     public void loginUnsuccessfulEmptyPassword() {
         Assert.assertEquals(
                 loginStep.loginIncorrect(ReadProperties.password(), "").
-                        getErrorTextNoPasswordLocator().getText()
+                        getErrorTextNoPassword().getText()
                 , "Password is required.");
     }
 
@@ -61,6 +61,16 @@ public class RegressionTests extends BaseTest {
         Assert.assertEquals(testCasesStep.getSuccessfulText(), "Successfully added the new test case. Add another");
     }
 
+    @Test(dependsOnMethods = {"addTestCasesTest", "addFirstTypeProjectTest"}
+            , description = "Загрузка файла при создании тест-кейса"
+            , groups = {"Nikita's tests", "regression"})
+    public void uploadTest() {
+        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
+        testCasesStep.goToTestCasesStep();
+        fileUploadStep.uploadFile();
+        Assert.assertTrue(fileUploadStep.didUploadedFileFindInListAttachment("Nirvana_Something_In_The_Way.mp3"));
+    }
+
     @Test(dependsOnMethods = "uploadTest"
             , description = "Удаление тест-кейса"
             , groups = {"Nikita's tests", "regression"})
@@ -68,16 +78,6 @@ public class RegressionTests extends BaseTest {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         testCasesStep.deleteTestCasesStep();
         Assert.assertTrue(testCasesStep.checkForDelete());
-    }
-
-    @Test(dependsOnMethods = "addTestCasesTest"
-            , description = "Загрузка файла при создании тест-кейса"
-            , groups = {"Nikita's tests", "regression"})
-    public void uploadTest() throws InterruptedException {
-        loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
-        testCasesStep.goToTestCasesStep();
-        fileUploadStep.uploadFile();
-        Assert.assertTrue(fileUploadStep.assertFile());
     }
 
     @Test(dependsOnMethods = "deleteTestCasesTest"

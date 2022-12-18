@@ -12,7 +12,6 @@ public abstract class BaseTestCasePage extends BasePage {
     private final By nameInputLocator = By.id("title");
     private final By predictionInput = By.id("custom_steps_display");
     private final By expectedResultInput = By.id("custom_expected_display");
-    private final By droupDownType = By.className("class");
     private final By checkBoxedToSelectAllTestCases = By.xpath("//*[@class='header sectionRow caseDroppable']/th[2]/input");
     private final By deleteAllTestCases = By.id("deleteCases");
     private final By deletePermanentlyTestCasesLocator = By.linkText("Delete Permanently");

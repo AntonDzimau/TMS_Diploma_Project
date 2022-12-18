@@ -9,55 +9,44 @@ public class AddTestCasePage extends BaseTestCasePage {
 
     private final By pageIdentifier = By.className("page_title");
     private final By acceptButtonLocator = By.id("accept");
-    private final By uploadPageLocator = By.xpath("//*[@for='custom_preconds']/span/a[2]/div");
-    private final By uploadButtonLocator = By.xpath("/html/body/input[5]");
-    private final By acceptUploadLocator = By.id("attachmentNewSubmit");
-    private final By uploadFileLocator = By.cssSelector("#custom_preconds_display .attachment-list-item");
+    private final By uploadPageLocator = By.id("entityAttachmentListEmptyIcon");
     private final By addTestcasesLocator = By.id("sidebar-cases-add");
     private final By successfulTextLocator = By.className("message-success");
+    private final By deleteTestCasesLocator = By.className("caseRow");
 
-    private final By deleteTectCasesLocator=By.className("caseRow");
-
+    public UploadFilePage uploadFilePage;
 
     public AddTestCasePage(WebDriver driver) {
         super(driver);
+        uploadFilePage = new UploadFilePage(driver);
     }
-
 
     @Override
     protected By getPageIdentifier() {
         return pageIdentifier;
     }
 
-    public WebElement getAcceptButtonLocator() {
+    public WebElement getAcceptButton() {
         return waitsService.waitForVisibilityBy(acceptButtonLocator);
     }
 
-    public WebElement getUploadPageLocator() {
+    public WebElement getUploadPage() {
         return waitsService.waitForVisibilityBy(uploadPageLocator);
     }
 
-    public WebElement getUploadButtonLocator() {
-        return driver.findElement(uploadButtonLocator);
-    }
-    public WebElement getDeleteTectCasesLocator(){
-        return driver.findElement(deleteTectCasesLocator);
+    public void openUploadPage() {
+        getUploadPage().click();
     }
 
-    public WebElement getAcceptUpload() {
-
-        return driver.findElement(acceptUploadLocator);
+    public WebElement getDeleteTestCases() {
+        return waitsService.waitForVisibilityBy(deleteTestCasesLocator);
     }
 
     public WebElement getSuccessfulText() {
         return driver.findElement(successfulTextLocator);
     }
 
-    public Button getAddTestcasesLocator() {
+    public Button getAddTestCases() {
         return new Button(driver, waitsService.waitForVisibilityBy(addTestcasesLocator));
-    }
-
-    public WebElement getUploadFileLocator() {
-        return driver.findElement(uploadFileLocator);
     }
 }

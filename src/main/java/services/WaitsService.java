@@ -47,7 +47,7 @@ public class WaitsService {
         return wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
-    public WebElement waitForExists(By locator) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    public WebElement waitForExists(By by) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 }

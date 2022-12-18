@@ -39,4 +39,12 @@ public class ReadProperties {
     public static int timeout() {
         return Integer.parseInt(properties.getProperty("timeout"));
     }
+
+    public static int apiProjectId() {
+        return Integer.parseInt(properties.getProperty("api_project_id"));
+    }
+
+    public static int apiTestcasesSectionId() {
+        return Integer.parseInt(properties.getProperty("api_testcases_section_id"));
+    }
 }

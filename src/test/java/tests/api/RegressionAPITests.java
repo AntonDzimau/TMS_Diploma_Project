@@ -1,13 +1,10 @@
 package tests.api;
 
 import baseEntities.BaseAPITest;
-import entities.ProjectsEntities;
+import configuration.ReadProperties;
 import entities.UserEntities;
-import io.restassured.mapper.ObjectMapperType;
-import io.restassured.response.Response;
 import models.Project;
 import org.apache.http.HttpStatus;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.Endpoints;
 
@@ -20,7 +17,7 @@ public class RegressionAPITests extends BaseAPITest {
     public void getMilestonesTest() {
         given()
                 .when()
-                .pathParam("project_id", 51)
+                .pathParam("project_id", ReadProperties.apiProjectId())
                 .get(Endpoints.GET_MILESTONES)
                 .then()
                 .log().status()
@@ -31,7 +28,7 @@ public class RegressionAPITests extends BaseAPITest {
                 .statusCode(HttpStatus.SC_OK);
     }
 
-    @Test(description = "Некорректное обновление проекта"
+    @Test(description = "Обновление проекта без поля 'Имя'"
             , groups = {"Anton's tests", "regression"})
     public void updateProjectTest() {
         Project updateProject = Project.builder()
@@ -41,33 +38,16 @@ public class RegressionAPITests extends BaseAPITest {
         given()
                 .body(updateProject)
                 .when()
-                .pathParam("project_id", 51)
+                .pathParam("project_id", ReadProperties.apiProjectId())
                 .post(Endpoints.UPDATE_PROJECT)
                 .then()
                 .log().body()
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
-    @Test(description = "Добавление нового проекта через API"
-            , groups = {"Nikita's tests", "regression"})
-    public void addNewProject() {
-        Response response = given()
-                .body(ProjectsEntities.testProjectForApi, ObjectMapperType.GSON)
-                .log().body()
-                .when()
-                .post(Endpoints.ADD_PROJECT)
-                .then()
-                .log().body()
-                .statusCode(HttpStatus.SC_OK)
-                .extract().response();
-
-        Assert.assertEquals(response.getBody().jsonPath().get("name"), ProjectsEntities.testProjectForApi.getName());
-    }
-
-    @Test(dependsOnMethods = "addNewProject"
-            , description = "Получение всех проектов через API запрос"
+    @Test(description = "Получение всех проектов через API запрос"
             , groups = {"Nikita tests", "regression"})
-    public void getProjectTest() {
+    public void getAllProjectsTest() {
         given()
                 .when()
                 .get(Endpoints.GET_ALL_PROJECTS)
@@ -75,11 +55,11 @@ public class RegressionAPITests extends BaseAPITest {
                 .log().status()
                 .log().body()
                 .body("projects.get(0).name", is("Project to Anton's API tests"))
-                .body("projects.get(1).name", is("Project For Api Nikita"))
+                .body("projects.get(1).name", is("Project to Nikita's API tests"))
                 .statusCode(HttpStatus.SC_OK);
     }
 
-    @Test(description = "Получение всех юзеров через API запрос"
+    @Test(description = "Получение всех пользователей через API запрос"
             , groups = {"Nikita tests", "regression"})
     public void getAllUser() {
         given()

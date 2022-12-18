@@ -2,8 +2,11 @@ package tests.api;
 
 import baseEntities.BaseAPITest;
 import com.google.gson.Gson;
+import configuration.ReadProperties;
 import entities.MilestoneEntities;
+import entities.ProjectsEntities;
 import entities.TestCasesEntities;
+import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
 import models.Milestone;
 import models.TestCases;
@@ -15,13 +18,42 @@ import utils.Endpoints;
 import static io.restassured.RestAssured.given;
 
 public class SmokeAPITests extends BaseAPITest {
+    @Test(description = "Добавление нового проекта через API"
+            , groups = {"Nikita's tests", "smoke"})
+    public void addNewProjectThroughAPITest() {
+        Response response = given()
+                .body(ProjectsEntities.testProjectForApi, ObjectMapperType.GSON)
+                .log().body()
+                .when()
+                .post(Endpoints.ADD_PROJECT)
+                .then()
+                .log().body()
+                .statusCode(HttpStatus.SC_OK)
+                .extract().response();
+        ProjectsEntities.testProjectForApi.setId(response.getBody().jsonPath().get("id"));
+        Assert.assertEquals(response.getBody().jsonPath().get("name")
+                , ProjectsEntities.testProjectForApi.getName());
+
+    }
+
+    @Test(dependsOnMethods = "addNewProjectThroughAPITest"
+            , description = "Удаление проекта через API"
+            , groups = {"Nikita's tests", "smoke"})
+    public void removeProjectThroughAPITest() {
+        given()
+                .pathParam("project_id", ProjectsEntities.testProjectForApi.getId())
+                .post(Endpoints.DELETE_PROJECT)
+                .then()
+                .statusCode(HttpStatus.SC_OK);
+    }
+
     @Test(description = "Добавление майлстоуна через API запрос"
             , groups = {"Anton's tests", "smoke"})
     public void addMilestoneTest() {
         Response response = given()
-                .body(MilestoneEntities.milestoneForApiTest)
+                .body(MilestoneEntities.milestoneForApiTest, ObjectMapperType.GSON)
                 .when()
-                .pathParam("project_id", 51)
+                .pathParam("project_id", ReadProperties.apiProjectId())
                 .post(Endpoints.ADD_MILESTONE)
                 .then()
                 .log().body()
@@ -46,11 +78,12 @@ public class SmokeAPITests extends BaseAPITest {
 
     @Test(description = "Добавление тест-кейса через API запрос"
             , groups = {"Nikita's tests", "smoke"})
-    public void addTestCasesTest() {
+    public void addTestCaseTest() {
         Response response = given()
-                .body(TestCasesEntities.testCasesForApiTest)
+                .body(TestCasesEntities.testCasesForApiTest, ObjectMapperType.GSON)
+                .log().body()
                 .when()
-                .pathParam("section_id", 16)
+                .pathParam("section_id", ReadProperties.apiTestcasesSectionId())
                 .post(Endpoints.ADD_TESTCASE)
                 .then()
                 .log().body()
@@ -61,13 +94,13 @@ public class SmokeAPITests extends BaseAPITest {
         Assert.assertEquals(actualTestCases, TestCasesEntities.testCasesForApiTest);
     }
 
-    @Test(dependsOnMethods = "addTestCasesTest"
+    @Test(dependsOnMethods = "addTestCaseTest"
             , description = "Удаление тест-кейса через API запрос"
             , groups = {"Nikita's tests", "smoke"})
-    public void DeleteTestCasesTest() {
+    public void removeTestCaseTest() {
         given()
                 .pathParam("case_id", TestCasesEntities.testCasesForApiTest.getId())
-                .post(Endpoints.Delete_TESTCASE)
+                .post(Endpoints.DELETE_TESTCASE)
                 .then()
                 .statusCode(HttpStatus.SC_OK);
     }

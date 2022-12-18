@@ -29,13 +29,14 @@ public class LoginPage extends BasePage {
     }
 
     public Input getPswInput() {
-        return new Input(driver,  waitsService.waitForVisibilityBy(pswInputLocator) );
+        return new Input(driver, waitsService.waitForVisibilityBy(pswInputLocator));
     }
 
     public Button getLoginButton() {
-        return new Button(driver, waitsService.waitForClickableBy(loginButtonLocator)  );
+        return new Button(driver, waitsService.waitForClickableBy(loginButtonLocator));
     }
-    public WebElement getErrorTextNoLoginLocator(){
+
+    public WebElement getErrorTextNoLogin() {
         return waitsService.waitForVisibilityBy(errorTextNoLoginLocator);
     }
 
@@ -54,7 +55,8 @@ public class LoginPage extends BasePage {
     public WebElement getErrorTextElement() {
         return waitsService.waitForVisibilityBy(errorTextLocator);
     }
-    public WebElement getErrorTextNoPasswordLocator(){
+
+    public WebElement getErrorTextNoPassword() {
         return waitsService.waitForVisibilityBy(errorTextNoPasswordLocator);
     }
 }

@@ -10,17 +10,18 @@ import org.openqa.selenium.WebElement;
 
 public class DashboardPage extends BasePage {
     private final static String pagePath = "index.php?/dashboard";
+
     private final By headerLogoLocator = By.cssSelector(".top-section");
     private final By navigationUserLinkLocator = By.id("navigation-user");
     private final By addProjectLocator = By.id("sidebar-projects-add");
-    private final By successfulTextLocatorDeleteProject = By.className("message-success");
-    private final By successfulTextLocatorAddProject = By.className("empty-title");
-    private final By administrationLink = By.id("navigation-admin");
+    private final By successfulTextLocatorDeleteProjectLocator = By.className("message-success");
+    private final By successfulTextLocatorAddProjectLocator = By.className("empty-title");
+    private final By administrationLinkLocator = By.id("navigation-admin");
     private final By allProjectLinkLocator = By.id("navigation-sub-projects");
-    private final By deleteProjectLink = By.className("icon-small-delete");
-    private final By deleteCheckBox = By.name("deleteCheckbox");
-    private final By submitDelete = By.linkText("OK");
-    private final By goToTestCasesPageLocator = By.linkText("Test Cases");
+    private final By deleteProjectLinkLocator = By.className("icon-small-delete");
+    private final By deleteCheckBoxLocator = By.name("deleteCheckbox");
+    private final By submitDeleteLocator = By.linkText("OK");
+    private final By goToTestCasesPageLinkLocator = By.linkText("Test Cases");
 
     public DashboardPage(WebDriver driver) {
         super(driver);
@@ -40,7 +41,7 @@ public class DashboardPage extends BasePage {
     }
 
     public WebElement getAdministrationLink() {
-        return waitsService.waitForVisibilityBy(administrationLink);
+        return waitsService.waitForVisibilityBy(administrationLinkLocator);
     }
 
     public void clickAdministrationLink() {
@@ -59,39 +60,43 @@ public class DashboardPage extends BasePage {
         return waitsService.waitForVisibilityBy(navigationUserLinkLocator);
     }
 
-    public Button addProject() {
+    public Button getAddProjectButton() {
         return new Button(driver, waitsService.waitForVisibilityBy(addProjectLocator));
     }
 
-    public CheckBox deleteProjectCheckBox() {
-        return new CheckBox(driver, waitsService.waitForVisibilityBy(deleteCheckBox));
+    public CheckBox getDeleteProjectCheckBox() {
+        return new CheckBox(driver, waitsService.waitForVisibilityBy(deleteCheckBoxLocator));
     }
 
-    public UIElement successfulText() {
-        return new UIElement(driver, waitsService.waitForVisibilityBy(successfulTextLocatorDeleteProject));
+    public UIElement getSuccessfulText() {
+        return new UIElement(driver, waitsService.waitForVisibilityBy(successfulTextLocatorDeleteProjectLocator));
     }
 
-    public UIElement successfulTextAddProject() {
-        return new UIElement(driver, waitsService.waitForVisibilityBy(successfulTextLocatorAddProject));
+    public UIElement getSuccessfulTextAfterAddingProject() {
+        return new UIElement(driver, waitsService.waitForVisibilityBy(successfulTextLocatorAddProjectLocator));
     }
 
-    public WebElement getgoToTestCasesPageLocator() {
-        return waitsService.waitForVisibilityBy(goToTestCasesPageLocator);
+    public WebElement getLinkToTestCasesPage() {
+        return waitsService.waitForVisibilityBy(goToTestCasesPageLinkLocator);
     }
 
-    public WebElement getDeleteProjectLink() {
-        return waitsService.waitForVisibilityBy(deleteProjectLink);
+    public void goToTestCasesPage() {
+        getLinkToTestCasesPage().click();
+    }
+
+    public WebElement getLinkForDeleteProject() {
+        return waitsService.waitForVisibilityBy(deleteProjectLinkLocator);
     }
 
     public void deleteProject() {
-        getDeleteProjectLink().click();
+        getLinkForDeleteProject().click();
     }
 
     public CheckBox getSubmitDeleteLink() {
-        return new CheckBox(driver, waitsService.waitForVisibilityBy(submitDelete));
+        return new CheckBox(driver, waitsService.waitForVisibilityBy(submitDeleteLocator));
     }
 
-    public void submitForDelete() {
+    public void submitForDeleting() {
         getSubmitDeleteLink().setFlag();
     }
 }
