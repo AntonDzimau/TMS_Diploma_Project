@@ -78,7 +78,6 @@ public class ProjectSteps extends BaseStep {
         for (int i = listOfProjectsPage.getListOfProjects().getListOfRows().size(), j = 0; i > 1; i--) {
             j++;
             if (listOfProjectsPage.getListOfProjects().getListOfRows().get(i - 1).getCell(0).getLinkFromCell().getText().contains(targetProject.getName())) {
-                System.out.println("Я нашел нужный проект! Его номер снизу - " + j);
                 String link = listOfProjectsPage.getListOfProjects()
                         .getRow(listOfProjectsPage.getListOfProjects().getListOfRows().size() - j)
                         .getCell(0)

@@ -48,7 +48,6 @@ public class RegressionTests extends BaseTest {
                         .getListOfProjects()
                         .isFoundInTable(ProjectsEntities.firstTypeProject.getName())
         );
-        System.out.println("After test id is - " + ProjectsEntities.firstTypeProject.getId());
     }
 
     @Test(dependsOnMethods = "addFirstTypeProjectTest"
