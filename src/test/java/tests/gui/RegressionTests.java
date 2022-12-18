@@ -69,11 +69,11 @@ public class RegressionTests extends BaseTest {
     public void uploadTest() {
         loginStep.loginSuccessful(ReadProperties.username(), ReadProperties.password());
         testCasesStep.goToAddTestCasePage(ProjectsEntities.firstTypeProject.getId());
-        fileUploadStep.uploadFile();
+        fileUploadStep.uploadFileToTestCaseInProject();
         Assert.assertTrue(fileUploadStep.didUploadedFileFindInListAttachment("Nirvana_Something_In_The_Way.mp3"));
     }
 
-    @Test(dependsOnMethods = {"addFirstTypeProjectTest", "addTestCasesTest"}
+    @Test(dependsOnMethods = {"addFirstTypeProjectTest", "addTestCasesTest", "uploadTest"}
             , description = "Удаление тест-кейса"
             , groups = {"Nikita's tests", "regression"})
     public void deleteTestCasesTest() {
@@ -83,7 +83,7 @@ public class RegressionTests extends BaseTest {
         );
     }
 
-    @Test(dependsOnMethods = "deleteTestCasesTest"
+    @Test(dependsOnMethods = {"addFirstTypeProjectTest", "addTestCasesTest", "uploadTest", "deleteTestCasesTest"}
             , description = "Удаление всех проектов 1-го типа"
             , groups = {"Nikita's tests", "regression"})
     public void removeFirstTypeProjectTest() {

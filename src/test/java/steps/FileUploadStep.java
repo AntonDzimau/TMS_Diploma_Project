@@ -5,6 +5,7 @@ import configuration.ReadProperties;
 import io.qameta.allure.Step;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
+import pages.projects.ProjectDetailsPage;
 import pages.testCases.AddTestCasePage;
 import services.WaitsService;
 
@@ -12,6 +13,7 @@ public class FileUploadStep extends BaseStep {
 
     public String targetFileName;
     AddTestCasePage addTestCasePage;
+    ProjectDetailsPage projectDetailsPage;
     WaitsService waitsService;
 
 
@@ -19,11 +21,12 @@ public class FileUploadStep extends BaseStep {
         super(driver);
         addTestCasePage = new AddTestCasePage(driver);
         waitsService = new WaitsService(driver);
+        projectDetailsPage = new ProjectDetailsPage(driver);
         targetFileName = "Nirvana_Something_In_The_Way.mp3";
     }
 
     @Step
-    public AddTestCasePage uploadFile() {
+    public AddTestCasePage uploadFileToTestCaseInProject() {
         String pathToFile;
         addTestCasePage.openUploadPage();
         try {
