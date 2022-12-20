@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Main Suite" thread-count="3" parallel="tests">
+    <test name="Diploma smoke tests">
+        <classes>
+            <class name="tests.gui.SmokeTests"/>
+        </classes>
+    </test>
+    <test name="Diploma regression tests">
+        <classes>
+            <class name="tests.gui.RegressionTests"/>
+        </classes>
+    </test>
+    <test name="Diploma API tests">
+        <classes>
+            <class name="tests.api.UsersAPITests"/>
+            <class name="tests.api.ProjectsAPITests"/>
+            <class name="tests.api.MilestonesAPITests"/>
+            <class name="tests.api.TestCasesAPITests"/>
+        </classes>
+    </test>
+</suite>

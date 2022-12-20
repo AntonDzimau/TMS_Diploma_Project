@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Main Suite">
+    <test name="Diploma tests">
+        <classes>
+            <class name="tests.gui.RegressionTests"/>
+            <class name="tests.gui.SmokeTests"/>
+            <class name="tests.api.UsersAPITests"/>
+            <class name="tests.api.ProjectsAPITests"/>
+            <class name="tests.api.MilestonesAPITests"/>
+            <class name="tests.api.TestCasesAPITests"/>
+        </classes>
+    </test>
+</suite>
