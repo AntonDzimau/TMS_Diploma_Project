@@ -1,6 +1,6 @@
 package steps;
 
-import baseEntities.BaseTest;
+import baseEntities.BaseUITest;
 import configuration.ReadProperties;
 import entities.TestCasesEntities;
 import io.qameta.allure.Step;
@@ -10,14 +10,14 @@ import pages.projects.ProjectDetailsPage;
 import pages.testCases.AddTestCasePage;
 import pages.testCases.TestCaseDetailsPage;
 
-public class TestCasesStep extends BaseTest {
+public class UITestCasesStep extends BaseUITest {
     AddTestCasePage addTestCasePage;
     DashboardPage dashboardPage;
     ProjectDetailsPage projectDetailsPage;
     TestCaseDetailsPage testCaseDetailsPage;
 
 
-    public TestCasesStep(WebDriver driver) {
+    public UITestCasesStep(WebDriver driver) {
         super();
         addTestCasePage = new AddTestCasePage(driver);
         dashboardPage = new DashboardPage(driver);

@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 @Listeners(InvokedListener.class)
-public class BaseTest {
+public class BaseUITest {
     protected WebDriver driver;
 
     protected LoginStep loginStep;
@@ -31,7 +31,7 @@ public class BaseTest {
     protected ProjectsEntities projectsEntities;
     protected MilestoneEntities milestoneEntities;
     protected TestCasesEntities testCasesEntities;
-    protected TestCasesStep testCasesStep;
+    protected UITestCasesStep testCasesStep;
     protected FileUploadStep fileUploadStep;
 
 
@@ -57,7 +57,7 @@ public class BaseTest {
         projectsEntities = new ProjectsEntities();
         milestoneEntities = new MilestoneEntities();
         testCasesEntities=new TestCasesEntities();
-        testCasesStep=new TestCasesStep(driver);
+        testCasesStep=new UITestCasesStep(driver);
         fileUploadStep =new FileUploadStep(driver);
     }
 

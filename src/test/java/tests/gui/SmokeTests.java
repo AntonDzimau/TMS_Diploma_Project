@@ -1,12 +1,12 @@
 package tests.gui;
 
-import baseEntities.BaseTest;
+import baseEntities.BaseUITest;
 import configuration.ReadProperties;
 import entities.ProjectsEntities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class SmokeTests extends BaseTest {
+public class SmokeTests extends BaseUITest {
     @Test(description = "Логин с корректными данными"
             , groups = "smoke")
     public void loginSuccessful() {

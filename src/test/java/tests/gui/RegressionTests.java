@@ -1,6 +1,6 @@
 package tests.gui;
 
-import baseEntities.BaseTest;
+import baseEntities.BaseUITest;
 import configuration.ReadProperties;
 import entities.MilestoneEntities;
 import entities.ProjectsEntities;
@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import pages.milestones.ListOfMilestonesPage;
 import pages.projects.AddProjectPage;
 
-public class RegressionTests extends BaseTest {
+public class RegressionTests extends BaseUITest {
 
     @Test(description = "Логин с некорректным паролем"
             , groups = {"Nikita's tests", "regression"})
@@ -94,7 +94,7 @@ public class RegressionTests extends BaseTest {
         );
     }
 
-    @Test(description = "Логин с корректными данными"
+    @Test(description = "Логин с некорректным Email"
             , groups = {"Anton's tests", "regression"})
     public void loginUnsuccessful() {
         Assert.assertEquals(
