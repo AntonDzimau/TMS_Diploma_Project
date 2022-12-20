@@ -13,57 +13,52 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.5</aspectj.version>
+        <testng.version>7.6.1</testng.version>
+        <selenium.version>4.4.0</selenium.version>
+        <webdriver.version>5.2.1</webdriver.version>
+        <allure.version>2.19.0</allure.version>
+        <allure.plugin.version>2.9</allure.plugin.version>
+        <allure.report.version>2.7.0</allure.report.version>
+        <lombok.version>1.18.10</lombok.version>
+        <rest.assured.version>5.2.0</rest.assured.version>
+        <surefire.version>1.7.30</surefire.version>
+        <surefire.plugin.version>2.20</surefire.plugin.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.6.1</version>
+            <version>${testng.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.4.0</version>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.2.1</version>
+            <version>${webdriver.version}</version>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <version>2.19.0</version>
+            <version>${allure.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
+            <version>${lombok.version}</version>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>6.1.0.Final</version>
+            <version>${rest.assured.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.30</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.18.0</version>
+            <version>${surefire.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -71,7 +66,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
+                <version>${surefire.plugin.version}</version>
                 <configuration>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -95,15 +90,13 @@
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>2.9</version>
+                <version>${allure.plugin.version}</version>
                 <configuration>
-                    <reportVersion>2.7.0</reportVersion>
+                    <reportVersion>${allure.report.version}</reportVersion>
                     <buildDirectory>.</buildDirectory>
                     <reportDirectory>target/allure-results</reportDirectory>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-
 </project>

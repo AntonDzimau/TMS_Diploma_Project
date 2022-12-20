@@ -5,8 +5,10 @@
         <classes>
             <class name="tests.gui.RegressionTests"/>
             <class name="tests.gui.SmokeTests"/>
-            <class name="tests.api.SmokeAPITests"/>
-            <class name="tests.api.RegressionAPITests"/>
+            <class name="tests.api.UsersAPITests"/>
+            <class name="tests.api.ProjectsAPITests"/>
+            <class name="tests.api.MilestonesAPITests"/>
+            <class name="tests.api.TestCasesAPITests"/>
         </classes>
     </test>
 </suite>

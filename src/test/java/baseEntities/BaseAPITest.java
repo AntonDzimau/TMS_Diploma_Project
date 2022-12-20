@@ -1,9 +1,6 @@
 package baseEntities;
 
 import configuration.ReadProperties;
-import entities.MilestoneEntities;
-import entities.ProjectsEntities;
-import entities.TestCasesEntities;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.protocol.HTTP;
