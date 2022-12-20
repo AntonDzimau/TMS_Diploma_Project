@@ -21,7 +21,6 @@ public class Table {
         this.uiElement = new UIElement(driver, webElement);
     }
 
-
     public ArrayList<UIElement> findUIElements(By by) {
         return uiElement.findUIElements(by);
     }
@@ -33,7 +32,6 @@ public class Table {
             ArrayList<UIElement> listOfColumns = listOfRows.get(i).findUIElements(By.cssSelector("td a"));
             for (int j = 0; j < listOfColumns.size(); j++) {
                 if (listOfColumns.get(j).getText().contains(value)) {
-                    //System.out.println(listOfColumns.get(j).getText());
                     flag = true;
                 }
             }
@@ -53,7 +51,6 @@ public class Table {
     public UIElement getCell( int rowNumber, int columnNumber) {
         TableRow row = getRow(rowNumber);
         ArrayList<UIElement> list = row.findUIElements(By.tagName("td"));
-
         return list.get(columnNumber);
     }
 
@@ -81,11 +78,6 @@ public class Table {
         return list;
     }
 
-/*    public TableRow getRow(int rowNumber) {
-        ArrayList<UIElement> list = uiElement.findUIElements(By.tagName("tr"));
-        return new TableRow(driver, list.get(rowNumber));
-    }*/
-
     public TableRow getRow(int rowNumber) {
         TableRow targetRow = null;
         for (int i = 0; i < getListOfRows().size(); i++) {
@@ -103,7 +95,6 @@ public class Table {
             ArrayList<UIElement> listOfColumns = listOfRows.get(i).findUIElements(By.cssSelector("td a"));
             for (int j = 0; j < listOfColumns.size(); j++) {
                 if (listOfColumns.get(j).getText().contains(value)) {
-                   // System.out.println(listOfColumns.get(j).getText());
                     targetRow = getListOfRows().get(i);
                 }
             }

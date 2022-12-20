@@ -5,10 +5,6 @@ import lombok.*;
 
 @Data
 @Builder
-@ToString
-@Getter
-@Setter
-
 public class TestCases {
     @SerializedName(value = "type_id")
     private int type;

@@ -25,6 +25,7 @@ public class TableCell {
     public UIElement getLinkFromCell() {
        return uiElement.findElement(By.tagName("a"));
     }
+
     public WebElement getLinkFromCellLikeWebElement() {
         return uiElement.findElementLikeWeb(By.tagName("a"));
     }

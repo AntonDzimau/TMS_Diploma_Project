@@ -23,7 +23,6 @@ import java.nio.file.Files;
 
 @Listeners(InvokedListener.class)
 public class BaseTest {
-    private Capabilities capabilities;
     protected WebDriver driver;
 
     protected LoginStep loginStep;
@@ -42,7 +41,7 @@ public class BaseTest {
         iTestContext.setAttribute("driver", driver);
 
         driver.get(ReadProperties.getUrl());
-        capabilities = ((RemoteWebDriver) driver).getCapabilities();
+        Capabilities capabilities = ((RemoteWebDriver) driver).getCapabilities();
 
         if (!UpdateEnvironmentProperties.isFileExist()) {
             UpdateEnvironmentProperties.setProperty("os.name", System.getProperty("os.name"));

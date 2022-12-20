@@ -23,7 +23,6 @@ public class ReadProperties {
         return properties.getProperty("browser");
     }
 
-
     public static String username() {
         return properties.getProperty("username");
     }
